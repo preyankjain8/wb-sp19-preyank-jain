@@ -1,0 +1,55 @@
+.table-heading {
+    background: Gainsboro;
+}
+
+.empty-column {
+    background: Gainsboro;
+    width: 10%;
+}
+
+.empty-row{
+	color: Gainsboro;
+    height: 20px;
+}
+
+.title{
+	width: 35%;
+}
+
+.wd-top-row {
+	color: red;
+	position: fixed;
+}
+
+.wd-bottom-right {
+	color: red;
+	position: fixed;
+	bottom: 10px;
+	left: 85%;
+}
+
+.fa-bars{
+	color: white;
+	padding-left: 5px;
+}
+
+#course-manager {
+	font-size: x-large;
+	color: white;
+	font-weight: bold;
+}
+
+#top-row{
+	background: DodgerBlue;
+	height: 50px;
+	padding: 5px;
+}
+
+#new-course-title{
+	width: 100%;
+	font-weight: bold;
+}
+
+.fa-plus-circle{
+    color: red
+}
