@@ -29,6 +29,17 @@ class ModuleList extends React.Component {
         module: {title: event.target.value}
       });
   }
+
+  deleteModule = (moduleId) => {
+      this.setState(
+        {
+          modules: this.state.modules.filter(
+            module => module.id !== moduleId
+          )
+        }
+      )
+    }
+
   render() {
     return(
       <div>
@@ -49,7 +60,8 @@ class ModuleList extends React.Component {
                   <ModuleListItem
                     selectModule={this.props.selectModule}
                     key={module.id}
-                    module={module}/>
+                    module={module}
+                    deleteModule={this.deleteModule}/>
                 )
               }
             )

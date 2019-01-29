@@ -13,8 +13,8 @@ class CourseEditor extends React.Component {
     this.state = {
       course: course,
       module: course.modules[0],
+      lesson: course.modules[0].lessons[0],
       lessons:  course.modules[0].lessons
-      topics: course.modules[0].lessons[0].topics
     }
   }
   selectModule = module =>
@@ -22,6 +22,25 @@ class CourseEditor extends React.Component {
       module: module,
       lessons: module.lessons
     })
+
+  createLesson = () => {
+      this.setState(
+        {
+          lessons: [
+            ...this.state.lessons,
+            this.state.lesson
+          ]
+        }
+      )
+    }
+  lessonTitleChanged = (event) => {
+      this.setState(
+        {
+          lesson: {title: event.target.value}
+        });
+  }
+
+
   render() {
     return (
       <div>
@@ -34,7 +53,9 @@ class CourseEditor extends React.Component {
         </div>
         <div className="col-8">
           <LessonTabs
-            lessons={this.state.lessons}/>
+            lessons={this.state.lessons}
+            createLesson={this.createLesson}
+            lessonTitleChanged={this.lessonTitleChanged}/>
           <TopicPills
             topics={this.state.topics}/>
         </div>
