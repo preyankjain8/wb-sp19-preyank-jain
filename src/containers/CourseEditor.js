@@ -23,9 +23,9 @@ class CourseEditor extends React.Component {
                       reRender={this.reRender}/>
         </div>
         <div className="col-8">
-                      <Route path="/courseEditor/lessons/:courseId/:title"
+                      <Route path="/:course/courseEditor/lessons/:courseId/:title"
                       component={LessonTabs}/>
-                      <Route path="/courseEditor/lessons/:courseId/:title/:lessonTitle"
+                      <Route path="/:course/courseEditor/lessons/:courseId/:title/:lessonTitle"
                                 component={TopicPills}/>
                 </div>
       </div>

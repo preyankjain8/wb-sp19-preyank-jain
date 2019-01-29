@@ -26,6 +26,9 @@ class CourseTable extends Component {
         console.log(this.courseService)
         return this.courseService.findAllCourses()
       }
+
+
+
   deleteCourse = (course) => {
         this.setState(
                       {
@@ -33,6 +36,26 @@ class CourseTable extends Component {
                       }
                     )
   }
+
+
+
+  findModule = (course) => {
+        if (course.modules.length == 0)
+            return "undefined"
+        else
+            return course.modules[0].title
+  }
+
+  findLesson = (course) => {
+          if (course.modules.length == 0)
+              return "undefined"
+          else if (course.modules.length != 0 && course.modules[0].lessons.length == 0)
+              return "undefined"
+          else
+              return course.modules[0].lessons[0].title
+    }
+
+
   render() {
     return (
       <div>
@@ -70,12 +93,16 @@ class CourseTable extends Component {
           		    {
           		        this.state.courses.map(
           		                                (course) => {
+          		                                var moduleTitle = this.findModule(course)
+                                                var lessonTitle = this.findLesson(course)
           		                                return (
           		                                    <CourseRow
           		                                    courseId={course.id}
           		                                    title={"  "+course.title}
           		                                    deleteCourse={this.deleteCourse}
-          		                                    course={course}/>
+          		                                    course={course}
+          		                                    moduleTitle={moduleTitle}
+          		                                    lessonTitle={lessonTitle}/>
                                                         )
                                                     }
                                                 )

@@ -1,24 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
-import LessonTabs from "../components/LessonTabs";
-import ModuleList from "../components/ModuleList";
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
-class ModuleListItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return(
-      <li className="list-group-item">
-        <Link to={"/courseEditor/lessons/"+ this.props.courseId +"/" + this.props.title}
-            onClick={ () => this.props.reRender()}>{this.props.title}</Link>
-        <span className="float-right">
-        <i className="fa fa-trash" onClick={ () => this.props.deleteModule(this.props.title) }></i>
+const ModuleListItem = ({module, selectModule}) =>
+    <li onClick={() => selectModule(module)} className="list-group-item">
+      {module.title}
+      <span className="float-right">
+        <i className="fa fa-trash"></i>
         <i className="fa fa-pencil"></i>
-        </span>
-      </li>
-    )
-  }
-}
+      </span>
+    </li>
+
 export default ModuleListItem;

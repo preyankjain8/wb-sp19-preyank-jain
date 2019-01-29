@@ -1,36 +1,16 @@
 import React from 'react'
 import ModuleListItem from "./ModuleListItem";
-import CourseService from "../services/CourseService";
-import courses from "../services/courses.json";
 
 class ModuleList extends React.Component {
   constructor(props) {
     super(props)
-    this.titleChanged = this.titleChanged.bind(this);
-    this.createModule = this.createModule.bind(this);
+
     this.state = {
-      module: {title: ''},
-      courseId: this.props.courseId,
-      modules: this.findModuleByCourseId(this.props.courseId)
+      module: { title: '' },
+      modules: this.props.modules
     };
 
     // this.titleChanged = this.titleChanged.bind(this);
-  }
-
-
-  findModuleByCourseId = (courseId) => {
-    return courses.find(
-        course => course.id === courseId
-    ).modules;
-  }
-
-  deleteModule = (moduleTitle) => {
-        this.setState(
-                  {
-                    modules: this.state.modules.filter(module => module.title != moduleTitle)
-
-                  }
-                )
   }
 
   createModule = () => {
@@ -52,8 +32,8 @@ class ModuleList extends React.Component {
   render() {
     return(
       <div>
-        <h3 id="ModuleListTitle">{this.props.title}</h3>
-        <ul id="wbdv-ModuleList" className="list-group">
+        <h3>Module List</h3>
+        <ul className="list-group">
           <li className="list-group-item">
             <input
               onChange={this.titleChanged}
@@ -67,11 +47,9 @@ class ModuleList extends React.Component {
               (module) => {
                 return (
                   <ModuleListItem
-                    reRender={this.props.reRender}
-                    key={module.title}
-                    deleteModule={this.deleteModule}
-                    courseId={this.state.courseId}
-                    title={module.title}/>
+                    selectModule={this.props.selectModule}
+                    key={module.id}
+                    module={module}/>
                 )
               }
             )

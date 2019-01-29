@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import CourseEditor from "./CourseEditor";
+import CourseEditor from "../components/CourseEditor";
 import CourseTable from "./CourseTable";
+import CourseService from "../services/CourseService";
 
 class CourseManager extends Component {
   render() {
