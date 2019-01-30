@@ -66,3 +66,20 @@
   color: aqua;
   background-color: gray;
 }
+
+.btn-webdv {
+    height: 100%;
+    background-color: gray;
+    color: white;
+}
+
+.btn-webdv-2{
+               height: 100%;
+               width: 100%;
+               background-color: gray;
+               color: white;
+           }
+
+.list-group-item{
+    background-color: lightgrey;
+}

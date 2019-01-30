@@ -60,7 +60,7 @@ class ModuleList extends React.Component {
               className="form-control"/>
             <button
               onClick={this.createModule}
-              className="btn btn-primary btn-block">Add Module</button>
+              className="btn-webdv-2">Add Module</button>
           </li>
           {
             this.state.modules.map(
