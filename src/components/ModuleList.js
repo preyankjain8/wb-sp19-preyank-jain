@@ -4,7 +4,6 @@ import ModuleListItem from "./ModuleListItem";
 class ModuleList extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
       module: { title: '' },
       modules: this.props.modules

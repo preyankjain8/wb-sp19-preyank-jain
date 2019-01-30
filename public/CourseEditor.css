@@ -55,3 +55,14 @@
 #course-editor-module-list{
     background: lightgrey;
 }
+
+
+.topic-pill {
+  color: blue;
+  background-color: lightgrey;
+}
+
+.active {
+  color: aqua;
+  background-color: gray;
+}

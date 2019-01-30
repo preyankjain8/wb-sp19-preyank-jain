@@ -13,12 +13,33 @@ class CourseManager extends Component {
         courses: this.courseService.findAllCourses()
     }
   }
+
+  onCourseNameChange = (event) =>
+  {
+    this.setState({
+                newCourse: {
+                        id: (new Date()).getTime(),
+                        title: 'New Course',
+                        writable: true
+                      }
+              })
+     console.log(this.state.newCourse)
+  }
+
   deleteCourse = (course) =>
           this.setState({
             courses: this.state.courses.filter(
                 deletecourse => deletecourse.id !== course.id
             )
           })
+  createCourse = () =>{
+    console.log("createcourse")
+    this.setState({
+                    courses: this.courseService.addCourse(this.state.newCourse)
+                  })
+
+     console.log(this.state.courses)
+  }
   render() {
     return (
     <Router>
@@ -32,12 +53,12 @@ class CourseManager extends Component {
                       WhiteBoard
                     </div>
                     <div className="col-7">
-                      <input id="new-course-title"
-                      		placeholder="New Course Title">
+                      <input onChange={ () => this.onCourseNameChange} id="new-course-title"
+                      		placeholder="New Course Title" className="form-control">
                       </input>
                     </div>
                     <div className="col-2">
-                    	<i className="fa fa-2x fa-plus-circle"></i>
+                    	<i onClick={ () =>  this.createCourse()} className="fa fa-2x fa-plus-circle"></i>
                     </div>
       </div>
               <div>

@@ -2,7 +2,7 @@ import React from 'react'
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 const ModuleListItem = ({module, selectModule, isActive, deleteModule}) =>
-    <li onClick={() => selectModule(module)} className="list-group-item" active={isActive(module)}>
+    <li onClick={() => selectModule(module)} className= {isActive(module)? 'list-group-item active':'list-group-item'}>
       {module.title}
       <span className="float-right">
         <i onClick={ () => deleteModule(module.id) } className="fa fa-trash"></i>

@@ -5,7 +5,7 @@ class CourseService {
     this.courses = courses;
   }
   addCourse = course => {
-    if(course === null) {
+    if(course === undefined) {
       course = {
         id: (new Date()).getTime(),
         title: 'New Course'
@@ -14,6 +14,7 @@ class CourseService {
     this.courses.push(course)
     return this.courses
   }
+
   findCourseById = courseId =>
     this.courses = this.courses.find(
       course => course.id === courseId

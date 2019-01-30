@@ -8,12 +8,22 @@ class LessonTabs extends React.Component{
             this.props.module.lessons = []
         }
     }
+
+    componentWillReceiveProps(nextProps){
+            if(nextProps.module.lessons === undefined){
+                                nextProps.module.lessons = []
+                            }
+        }
+     isActive(lesson){
+        return this.props.selectedLesson === lesson
+     }
+
     render(){
         return(
             <ul className="nav nav-tabs" id="course-editor-lessonTabs">
                 {
                   this.props.module.lessons.map(lesson =>
-                    <li key={lesson.id} className="nav-item" active>
+                    <li key={lesson.id} className={ this.isActive(lesson) ? 'nav-item active': 'nav-item' }>
                       <div className="nav-link">
                       <a
                                    onClick={ () => this.props.selectLesson(lesson) }

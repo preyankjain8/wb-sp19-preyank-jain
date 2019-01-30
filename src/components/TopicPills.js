@@ -8,6 +8,13 @@ class TopicPills extends React.Component{
                     this.props.lesson.topics = []
                 }
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.lesson.topics === undefined){
+                            nextProps.lesson.topics = []
+                        }
+    }
+
     render(){
         return(
             <ul className="nav nav-pills">
