@@ -35,7 +35,7 @@ class CourseEditor extends React.Component {
     }
   }
   selectModule = module =>{
-    if (module.lessons === undefined){
+    if (module.lessons === undefined || module.lessons.length === 0){
         this.setState({
                   module: module,
                   lesson: {}
@@ -56,9 +56,18 @@ class CourseEditor extends React.Component {
 
   createLesson = () => {
       var less = this.state.module.lessons;
-      less.push(
-        this.state.newlesson
-      )
+      if (this.state.newlesson === undefined ||
+          this.state.newlesson.title === ''){
+          less.push(
+                  {title: 'New Lesson',
+                  id: (new Date()).getTime()}
+                )
+      }
+      else{
+        less.push(
+                          this.state.newlesson
+                        )
+      }
       var mod = this.state.module
       mod.lessons = less
       this.setState(

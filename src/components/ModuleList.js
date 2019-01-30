@@ -20,6 +20,9 @@ class ModuleList extends React.Component {
        }
 
   createModule = () => {
+    if(this.state.module.title === ''){
+        this.state.module.title = 'New Module';
+    }
     this.setState(
       {
         modules: [
