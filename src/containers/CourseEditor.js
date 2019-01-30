@@ -13,52 +13,54 @@ class CourseEditor extends React.Component {
     const course = this.courseService.findCourseById(courseId)
     this.state = {
       course: course,
-      module: course.modules[0],
-      lesson: course.modules[0].lessons[0],
-      lessons: course.modules[0].lessons,
-      topic: course.modules[0].lessons[0].topics[0],
-      topics: course.modules[0].lessons[0].topics
+      module: {},
+      lesson:{}
     }
   }
   selectModule = module =>
     this.setState({
       module: module,
-      lessons: module.lessons
+      lesson: module.lessons[0]
     })
 
   selectLesson = lesson =>
       this.setState({
-        lesson: lesson,
-        topics: lesson.topics
+        lesson: lesson
       })
 
   createLesson = () => {
       this.setState(
         {
-          lessons: [
-            ...this.state.lessons,
-            this.state.lesson
-          ]
+              module: this.state.module.lessons.push(this.state.lesson),
+              lesson: module.lessons[0]
         }
       )
     }
 
-  deleteLesson = (lessonId) => {
+  deleteLesson = (deletelesson) => {
+        var less = this.state.module.lessons.filter(
+                                   lesson => lesson !== deletelesson
+                               )
+        var mod = this.state.module
+        mod.lessons = less
         this.setState(
           {
-            lessons: this.state.lessons.filter(
-                lesson => lesson.id !== lessonId
-            )
+            module: mod
           }
         )
       }
 
-  deleteTopic = (topicId) => {
+  deleteTopic = (deletetopic) => {
+          var top = this.state.module.lessons.find(
+                                    lesson => lesson === this.state.lesson
+                                ).topics.filter(
+                                    topic => topic !== deletetopic
+                                )
+          var mod = this.state.module
+          mod.lessons.find(l => l === this.state.lesson).topics = top
           this.setState(
             {
-              topics: this.state.topics.filter(
-                  topic => topic.id !== topicId
-              )
+            module: mod
             }
           )
         }
@@ -69,6 +71,9 @@ class CourseEditor extends React.Component {
         {
           lesson: {title: event.target.value}
         });
+        if(this.state.lesson.topics === undefined){
+            this.state.lesson.topics = []
+        }
   }
 
   topicTitleChanged = (event) => {
@@ -90,6 +95,7 @@ class CourseEditor extends React.Component {
        }
 
 
+
   render() {
     return (
       <div>
@@ -100,8 +106,7 @@ class CourseEditor extends React.Component {
         <div className="col-8">
             <LessonTabs
                         selectLesson={this.selectLesson}
-                        lesson={this.state.lesson}
-                        lessons={this.state.lessons}
+                        module={this.state.module}
                         createLesson={this.createLesson}
                         lessonTitleChanged={this.lessonTitleChanged}
                         deleteLesson={this.deleteLesson}/>
@@ -110,15 +115,13 @@ class CourseEditor extends React.Component {
       <div className="row">
         <div className="col-4" id="course-editor-module-list">
           <ModuleList
-            courseTitle={this.state.course.title}
             selectModule={this.selectModule}
             module={this.state.module}
             modules={this.state.course.modules}/>
         </div>
         <div className="col-8">
           <TopicPills
-            topics={this.state.topics}
-            selectedTopic={this.state.topic}
+            lesson={this.state.lesson}
             createTopic={this.createTopic}
             topicTitleChanged={this.topicTitleChanged}
             deleteTopic={this.deleteTopic}/>

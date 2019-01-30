@@ -1,25 +1,35 @@
 import React from 'react'
 import TopicPillItem from "./TopicPillItem";
 
-const TopicPills = ({topics, selectedTopic, topicTitleChanged, createTopic, deleteTopic}) =>
-  <ul className="nav nav-pills">
-    {
-      topics.map(topic =>
-        <TopicPillItem
-        topic={topic}
-        deleteTopic={deleteTopic}
-        selectedTopic={selectedTopic}/>
-      )
+class TopicPills extends React.Component{
+    constructor(props){
+        super(props)
+        if(this.props.lesson.topics === undefined){
+                    this.props.lesson.topics = []
+                }
     }
-    <li className="nav-item">
-                <input
-                  onChange={topicTitleChanged}
-                  className="form-control"/>
-    </li>
-    <li className="nav-item">
-                    <button
-                      onClick={createTopic}
-                      className="btn btn-primary btn-block"><i class="fa fa-plus" aria-hidden="true"></i></button>
-    </li>
-  </ul>
+    render(){
+        return(
+            <ul className="nav nav-pills">
+                {
+                  this.props.lesson.topics.map(topic =>
+                    <TopicPillItem
+                    topic={topic}
+                    deleteTopic={this.props.deleteTopic}/>
+                  )
+                }
+                <li className="nav-item">
+                            <input
+                              onChange={this.props.topicTitleChanged}
+                              className="form-control"/>
+                </li>
+                <li className="nav-item">
+                                <button
+                                  onClick={this.props.createTopic}
+                                  className="btn btn-primary btn-block"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </li>
+              </ul>
+        )
+    }
+}
 export default TopicPills

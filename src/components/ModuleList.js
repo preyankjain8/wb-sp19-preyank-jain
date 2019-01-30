@@ -13,7 +13,12 @@ class ModuleList extends React.Component {
     // this.titleChanged = this.titleChanged.bind(this);
   }
 
+    componentWillReceiveProps(nextProps) {
 
+           if(nextProps.modules === undefined ) {
+              nextProps.modules = []
+           }
+       }
 
   createModule = () => {
     this.setState(
