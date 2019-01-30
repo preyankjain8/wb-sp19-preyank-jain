@@ -43,7 +43,7 @@ class CourseTable extends Component {
                    		<th className="d-none d-md-table-cell">Owned by</th>
                    		<th className="d-none d-md-table-cell">Last modified</th>
                    		<th className="empty-column">
-                   		<Link to="/">
+                   		<Link to="/grid">
                    		    <i className="fa fa-th" aria-hidden="true"></i>
                    		</Link>
                    		</th>
