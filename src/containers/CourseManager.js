@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import CourseGrid from "./CourseGrid";
 import CourseTable from "./CourseTable";
+import CourseTable from "./CourseTable";
 import CourseService from "../services/CourseService";
 
 class CourseManager extends Component {
@@ -12,6 +13,12 @@ class CourseManager extends Component {
         courses: this.courseService.findAllCourses()
     }
   }
+  deleteCourse = (course) =>
+          this.setState({
+            courses: this.state.courses.filter(
+                deletecourse => deletecourse.id !== course.id
+            )
+          })
   render() {
     return (
     <Router>
@@ -35,9 +42,16 @@ class CourseManager extends Component {
       </div>
               <div>
                 <Route path='/' exact
-                render={() => <CourseTable courses={this.state.courses}/>}/>
+                component={() => <CourseTable
+                               courses={this.state.courses}
+                               deleteCourse={this.deleteCourse}/>}/>
                 <Route path='/grid'
-                render={() => <CourseGrid courses={this.state.courses}/>}/>
+                component={() => <CourseGrid
+                               courses={this.state.courses}
+                               deleteCourse={this.deleteCourse}/>}/>
+                <Route path="/course/:id"
+                                   exact
+                                   component={CourseEditor}/>
               </div>
       </div>
       </Router>

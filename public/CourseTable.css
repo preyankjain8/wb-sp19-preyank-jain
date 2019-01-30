@@ -55,3 +55,14 @@
 .fa-plus-circle{
     color: red
 }
+
+#course-grid-second-row{
+    background: lightgrey;
+    height: 40px;
+    padding: 5px;
+}
+
+.course-grid-second-row-ctnt{
+    color: black;
+    font-weight: bold;
+}

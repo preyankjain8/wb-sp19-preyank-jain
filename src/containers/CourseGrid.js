@@ -4,14 +4,13 @@ import CourseCard from '../components/CourseCard'
 import NewCourseCard from "../components/NewCourseCard";
 const CourseGrid = ({courses, deleteCourse, addCourse}) =>
   <div className="container-fluid">
-    <div className="row" id="top-row">
-                        <div className="col-4 d-none d-md-block"
-                        	   id="course-manager">
+    <div className="row" id="course-grid-second-row">
+                        <div className="col-4 d-none d-md-block course-grid-second-row-ctnt">
                           Recent documents
                         </div>
                         <div className="col-2 d-none d-md-block">
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 course-grid-second-row-ctnt">
                           Owned by me
                         </div>
                         <div className="col-1">

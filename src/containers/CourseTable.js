@@ -40,7 +40,7 @@ class CourseTable extends Component {
           		                                    <CourseRow
           		                                    courseId={course.id}
           		                                    title={"  "+course.title}
-          		                                    deleteCourse={this.deleteCourse}
+          		                                    deleteCourse={this.props.deleteCourse}
           		                                    course={course}/>
                                                         )
                                                     }
