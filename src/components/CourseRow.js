@@ -2,12 +2,12 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import CourseEditor from '../containers/CourseEditor';
 
-const CourseRow = ({courseId,title, deleteCourse, course, moduleTitle, lessonTitle}) =>
+const CourseRow = ({courseId,title, deleteCourse, course}) =>
   <tr>
     <td class="empty-column d-none d-md-table-cell"></td>
     <div>
         <td>
-                <Link to={"/courseEditor/"+ courseId}>
+                <Link to={"/course/"+ courseId}>
                     <i class="fa fa-file-text" aria-hidden="true"></i>
                     { title}
                 </Link>

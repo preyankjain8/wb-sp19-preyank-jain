@@ -43,7 +43,7 @@ class ModuleList extends React.Component {
   render() {
     return(
       <div>
-        <h3>Module List</h3>
+        <h3>Course Editor: {this.props.courseTitle}</h3>
         <ul className="list-group">
           <li className="list-group-item">
             <input

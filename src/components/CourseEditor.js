@@ -2,6 +2,7 @@ import React from 'react'
 import ModuleList from "./ModuleList";
 import LessonTabs from "./LessonTabs";
 import TopicPills from "./TopicPills";
+import WidgetList from "./WidgetList";
 import CourseService from "../services/CourseService"
 
 class CourseEditor extends React.Component {
@@ -92,10 +93,10 @@ class CourseEditor extends React.Component {
   render() {
     return (
       <div>
-        <h2>Course Editor: {this.state.course.title}</h2>
       <div className="row">
         <div className="col-4">
           <ModuleList
+            courseTitle={this.state.course.title}
             selectModule={this.selectModule}
             modules={this.state.course.modules}/>
         </div>
@@ -111,6 +112,7 @@ class CourseEditor extends React.Component {
             createTopic={this.createTopic}
             topicTitleChanged={this.topicTitleChanged}
             deleteTopic={this.deleteTopic}/>
+          <WidgetList />
         </div>
       </div>
       </div>
