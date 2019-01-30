@@ -19,11 +19,9 @@ class CourseManager extends Component {
     this.setState({
                 newCourse: {
                         id: (new Date()).getTime(),
-                        title: 'New Course',
-                        writable: true
+                        title: event.target.value
                       }
               })
-     console.log(this.state.newCourse)
   }
 
   deleteCourse = (course) =>
@@ -33,7 +31,6 @@ class CourseManager extends Component {
             )
           })
   createCourse = () =>{
-    console.log("createcourse")
     this.setState({
                     courses: this.courseService.addCourse(this.state.newCourse)
                   })
@@ -53,7 +50,7 @@ class CourseManager extends Component {
                       WhiteBoard
                     </div>
                     <div className="col-7">
-                      <input onChange={ () => this.onCourseNameChange} id="new-course-title"
+                      <input onChange={this.onCourseNameChange} id="new-course-title"
                       		placeholder="New Course Title" className="form-control">
                       </input>
                     </div>
