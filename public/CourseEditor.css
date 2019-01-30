@@ -41,3 +41,17 @@
 .fa-window-close{
 	color: red;
 }
+
+#course-editor-heading{
+    background: lightgrey;
+    color: white;
+}
+
+
+#course-editor-second-row{
+    background: lightgrey;
+}
+
+#course-editor-module-list{
+    background: lightgrey;
+}

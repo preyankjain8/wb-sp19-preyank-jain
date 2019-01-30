@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import CourseGrid from "./CourseGrid";
 import CourseTable from "./CourseTable";
-import CourseTable from "./CourseTable";
+import CourseEditor from "./CourseEditor";
 import CourseService from "../services/CourseService";
 
 class CourseManager extends Component {
@@ -29,7 +29,7 @@ class CourseManager extends Component {
                     </div>
                     <div className="col-2 d-none d-md-block"
                     	   id="course-manager">
-                      Course Manager
+                      WhiteBoard
                     </div>
                     <div className="col-7">
                       <input id="new-course-title"

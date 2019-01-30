@@ -1,16 +1,14 @@
 import React from 'react'
+import TopicPillItem from "./TopicPillItem";
 
-const TopicPills = ({topics, topicTitleChanged, createTopic, deleteTopic}) =>
+const TopicPills = ({topics, selectedTopic, topicTitleChanged, createTopic, deleteTopic}) =>
   <ul className="nav nav-pills">
     {
       topics.map(topic =>
-        <li key={topic.id} className="nav-item">
-          <a className="nav-link active"
-             href="#">{topic.title}
-             <i onClick={ () => deleteTopic(topic.id) } class="fa fa-times" aria-hidden="true"></i>
-             <i className="fa fa-pencil"></i>
-          </a>
-        </li>
+        <TopicPillItem
+        topic={topic}
+        deleteTopic={deleteTopic}
+        selectedTopic={selectedTopic}/>
       )
     }
     <li className="nav-item">

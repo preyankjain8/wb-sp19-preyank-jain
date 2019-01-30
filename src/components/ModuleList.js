@@ -13,6 +13,8 @@ class ModuleList extends React.Component {
     // this.titleChanged = this.titleChanged.bind(this);
   }
 
+
+
   createModule = () => {
     this.setState(
       {
@@ -40,10 +42,13 @@ class ModuleList extends React.Component {
       )
     }
 
+   isActive = (module) => {
+        return this.props.module === module
+       }
+
   render() {
     return(
       <div>
-        <h3>Course Editor: {this.props.courseTitle}</h3>
         <ul className="list-group">
           <li className="list-group-item">
             <input
@@ -59,6 +64,7 @@ class ModuleList extends React.Component {
                 return (
                   <ModuleListItem
                     selectModule={this.props.selectModule}
+                    isActive={this.isActive}
                     key={module.id}
                     module={module}
                     deleteModule={this.deleteModule}/>

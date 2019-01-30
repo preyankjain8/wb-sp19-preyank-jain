@@ -1,11 +1,11 @@
 import React from 'react'
 
-const LessonTabs = ({selectLesson, lessons, lessonTitleChanged, createLesson, deleteLesson}) =>
-  <ul className="nav nav-tabs">
+const LessonTabs = ({selectLesson, lessons, lesson, lessonTitleChanged, createLesson, deleteLesson}) =>
+  <ul className="nav nav-tabs" id="course-editor-lessonTabs">
     {
       lessons.map(lesson =>
-        <li key={lesson.id} className="nav-item">
-          <a className="nav-link active"
+        <li key={lesson.id} className="nav-item" active>
+          <a className="nav-link"
              onClick={ () => selectLesson(lesson) }
              href="#">{lesson.title}
              <i onClick={ () => deleteLesson(lesson.id) } class="fa fa-times" aria-hidden="true"></i>

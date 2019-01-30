@@ -93,29 +93,39 @@ class CourseEditor extends React.Component {
   render() {
     return (
       <div>
-      <div className="row">
+      <div className="row" id="course-editor-second-row">
         <div className="col-4">
+            <h4 id="course-editor-heading">Course Editor: {this.state.course.title}</h4>
+        </div>
+        <div className="col-8">
+            <LessonTabs
+                        selectLesson={this.selectLesson}
+                        lesson={this.state.lesson}
+                        lessons={this.state.lessons}
+                        createLesson={this.createLesson}
+                        lessonTitleChanged={this.lessonTitleChanged}
+                        deleteLesson={this.deleteLesson}/>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-4" id="course-editor-module-list">
           <ModuleList
             courseTitle={this.state.course.title}
             selectModule={this.selectModule}
+            module={this.state.module}
             modules={this.state.course.modules}/>
         </div>
         <div className="col-8">
-          <LessonTabs
-            selectLesson={this.selectLesson}
-            lessons={this.state.lessons}
-            createLesson={this.createLesson}
-            lessonTitleChanged={this.lessonTitleChanged}
-            deleteLesson={this.deleteLesson}/>
           <TopicPills
             topics={this.state.topics}
+            selectedTopic={this.state.topic}
             createTopic={this.createTopic}
             topicTitleChanged={this.topicTitleChanged}
             deleteTopic={this.deleteTopic}/>
           <WidgetList />
         </div>
       </div>
-      </div>
+    </div>
     )
   }
 }
