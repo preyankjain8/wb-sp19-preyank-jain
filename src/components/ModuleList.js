@@ -4,14 +4,6 @@ import ModuleListItem from "./ModuleListItem";
 class ModuleList extends React.Component {
   constructor(props) {
     super(props)
-    this.createModule = this.createModule.bind(this);
-    this.state = {
-      moduleInput: '',
-      module: { title: '' },
-      modules: this.props.modules
-    };
-
-    // this.titleChanged = this.titleChanged.bind(this);
   }
 
     componentWillReceiveProps(nextProps) {
@@ -21,40 +13,7 @@ class ModuleList extends React.Component {
            }
        }
 
-  createModule = () => {
-    var modTitle = 'New Module';
-    if(this.state.moduleInput !== ''){
-         modTitle = this.state.moduleInput
-    }
-    this.setState(
-      {
-        modules: [
-          ...this.state.modules,
-          {title: modTitle,
-          id: (new Date()).getTime()
-          }
-        ],
-        moduleInput:''
-      }
-    )
-    document.getElementById('module-input').innerHTML="";
-  }
-  titleChanged = (event) => {
-    this.setState(
-      {
-        moduleInput: event.target.value
-      });
-  }
 
-  deleteModule = (moduleId) => {
-      this.setState(
-        {
-          modules: this.state.modules.filter(
-            module => module.id !== moduleId
-          )
-        }
-      )
-    }
 
    isActive = (module) => {
         return this.props.module === module
@@ -67,23 +26,24 @@ class ModuleList extends React.Component {
           <li className="list-group-item">
             <input
               placeholder="New module title"
-              value={this.state.moduleInput}
-              onChange={this.titleChanged}
+              value={this.props.moduleInput}
+              onChange={this.props.titleChanged}
               className="form-control" id="module-input"/>
             <button
-              onClick={this.createModule}
+              onClick={this.props.createModule}
               className="btn-webdv-2">Add Module</button>
           </li>
           {
-            this.state.modules.map(
+            this.props.modules.map(
               (module) => {
                 return (
                   <ModuleListItem
+                    module={module}
                     selectModule={this.props.selectModule}
                     isActive={this.isActive}
                     key={module.id}
-                    module={module}
-                    deleteModule={this.deleteModule}/>
+                    deleteModule={this.props.deleteModule}
+                    editModuleName={this.props.editModuleName}/>
                 )
               }
             )

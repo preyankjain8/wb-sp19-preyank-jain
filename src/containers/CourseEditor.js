@@ -18,8 +18,13 @@ class CourseEditor extends React.Component {
               module: {},
               lesson: {},
               topic: {},
+              moduleInput: '',
               lessonInput: '',
-              topicInput: ''
+              topicInput: '',
+              editing: false,
+              editModule: {},
+              editLesson: {},
+              editTopic: {}
             }
     }
     else if(course.modules[0].lessons === undefined ||
@@ -29,8 +34,13 @@ class CourseEditor extends React.Component {
                   module: course.modules[0],
                   lesson: {},
                   topic: {},
+                  moduleInput: '',
                   lessonInput: '',
-                  topicInput: ''
+                  topicInput: '',
+                  editing: false,
+                  editModule: {},
+                  editLesson: {},
+                  editTopic: {}
                 }
         }
     else if(course.modules[0].lessons[0].topics === undefined ||
@@ -40,8 +50,13 @@ class CourseEditor extends React.Component {
                        module: course.modules[0],
                        lesson: course.modules[0].lessons[0],
                        topic: {},
+                       moduleInput: '',
                        lessonInput: '',
-                       topicInput: ''
+                       topicInput: '',
+                       editing: false,
+                       editModule: {},
+                       editLesson: {},
+                       editTopic: {}
                      }
              }
     else{
@@ -50,8 +65,13 @@ class CourseEditor extends React.Component {
                           module: course.modules[0],
                           lesson: course.modules[0].lessons[0],
                           topic: course.modules[0].lessons[0].topics[0],
+                          moduleInput: '',
                           lessonInput: '',
-                          topicInput: ''
+                          topicInput: '',
+                          editing: false,
+                          editModule: {},
+                          editLesson: {},
+                          editTopic: {}
                           }
     }
   }
@@ -165,8 +185,86 @@ class CourseEditor extends React.Component {
                )
        }
 
+    editModuleFunc(){
+        var modules = this.state.course.modules;
+        modules.find(
+            m => m.id === this.state.editModule.id
+        )
+        .title = this.state.moduleInput;
+        var cor = this.state.course;
+        cor.modules = modules;
+        this.setState({
+            course: cor,
+            moduleInput: '',
+            editModule: undefined
+        })
+    }
 
+    createModule = () => {
+        if (this.state.editModule !== undefined){
+            this.editModuleFunc();
+        }
+        else{
+            var modules = this.state.course.modules;
+                    var modTitle = 'New Module';
+                    if(this.state.moduleInput !== ''){
+                         modTitle = this.state.moduleInput
+                    }
+                    modules.push(
+                        {title: modTitle,
+                        id: (new Date()).getTime()
+                        }
+                    )
+                    var cor = this.state.course
+                    cor.modules = modules
+                    this.setState(
+                      {
+                        course: cor,
+                        moduleInput:''
+                      }
+                    )
+        }
+      }
+      titleChanged = (event) => {
+        this.setState(
+          {
+            moduleInput: event.target.value
+          });
+      }
 
+      deleteModule = (moduleId) => {
+          var mod = this.state.course.modules;
+          mod = mod.filter(
+            module => module.id !== moduleId
+          )
+          var cor = this.state.course
+          cor.modules = mod
+          if(this.state.module.id === moduleId){
+            this.setState(
+                        {
+                          course: cor,
+                          module: {},
+                          lesson: {},
+                          topic: {}
+                        }
+                      )
+          }
+          else{
+            this.setState(
+                                    {
+                                      course: cor,
+                                    }
+                                  )
+          }
+
+        }
+
+  editModuleName= (module) => {
+    this.setState({
+        moduleInput: module.title,
+        editModule: module
+    })
+  }
   render() {
     return (
       <div>
@@ -188,9 +286,14 @@ class CourseEditor extends React.Component {
       <div className="row">
         <div className="col-4" id="course-editor-module-list">
           <ModuleList
+            moduleInput={this.state.moduleInput}
+            titleChanged={this.titleChanged}
+            createModule={this.createModule}
+            deleteModule={this.deleteModule}
             selectModule={this.selectModule}
             module={this.state.module}
-            modules={this.state.course.modules}/>
+            modules={this.state.course.modules}
+            editModuleName= {this.editModuleName}/>
         </div>
         <div className="col-8">
           <TopicPills
