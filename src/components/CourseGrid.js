@@ -1,6 +1,5 @@
 import React from 'react'
 import CourseCard from './CourseCard'
-import NewCourseCard from "./NewCourseCard";
 const CourseGrid = ({courses, deleteCourse, addCourse}) =>
   <div className="container-fluid">
             <div className="row" id="top-row">
@@ -29,8 +28,6 @@ const CourseGrid = ({courses, deleteCourse, addCourse}) =>
             key={course.id}/>
         )
     }
-    <NewCourseCard
-      addCourse={addCourse}/>
     </div>
   </div>
 

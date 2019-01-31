@@ -34,8 +34,6 @@ const CourseGrid = ({courses, deleteCourse, addCourse}) =>
             key={course.id}/>
         )
     }
-    <NewCourseCard
-      addCourse={addCourse}/>
     </div>
   </div>
 
