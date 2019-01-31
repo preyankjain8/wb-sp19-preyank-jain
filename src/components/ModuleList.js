@@ -4,7 +4,9 @@ import ModuleListItem from "./ModuleListItem";
 class ModuleList extends React.Component {
   constructor(props) {
     super(props)
+    this.createModule = this.createModule.bind(this);
     this.state = {
+      moduleInput: '',
       module: { title: '' },
       modules: this.props.modules
     };
@@ -20,22 +22,27 @@ class ModuleList extends React.Component {
        }
 
   createModule = () => {
-    if(this.state.module.title === ''){
-        this.state.module.title = 'New Module';
+    var modTitle = 'New Module';
+    if(this.state.moduleInput !== ''){
+         modTitle = this.state.moduleInput
     }
     this.setState(
       {
         modules: [
           ...this.state.modules,
-          this.state.module
-        ]
+          {title: modTitle,
+          id: (new Date()).getTime()
+          }
+        ],
+        moduleInput:''
       }
     )
+    document.getElementById('module-input').innerHTML="";
   }
   titleChanged = (event) => {
     this.setState(
       {
-        module: {title: event.target.value}
+        moduleInput: event.target.value
       });
   }
 
@@ -59,8 +66,9 @@ class ModuleList extends React.Component {
         <ul className="list-group">
           <li className="list-group-item">
             <input
+              value={this.state.moduleInput}
               onChange={this.titleChanged}
-              className="form-control"/>
+              className="form-control" id="module-input"/>
             <button
               onClick={this.createModule}
               className="btn-webdv-2">Add Module</button>

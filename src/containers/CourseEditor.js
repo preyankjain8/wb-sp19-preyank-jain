@@ -16,21 +16,27 @@ class CourseEditor extends React.Component {
         this.state = {
               course: course,
               module: {},
-              lesson: {}
+              lesson: {},
+              lessonInput: '',
+              topicInput: ''
             }
     }
     else if(course.modules[0].lessons === undefined){
             this.state = {
                   course: course,
                   module: course.modules[0],
-                  lesson: {}
+                  lesson: {},
+                  lessonInput: '',
+                  topicInput: ''
                 }
         }
     else{
         this.state = {
                           course: course,
                           module: course.modules[0],
-                          lesson: course.modules[0].lessons[0]
+                          lesson: course.modules[0].lessons[0],
+                          lessonInput: '',
+                          topicInput: ''
                           }
     }
   }
@@ -55,31 +61,28 @@ class CourseEditor extends React.Component {
       })
 
   createLesson = () => {
+      var lessonTitle = 'New Lesson'
       var less = this.state.module.lessons;
-      if (this.state.newlesson === undefined ||
-          this.state.newlesson.title === ''){
-          less.push(
-                  {title: 'New Lesson',
-                  id: (new Date()).getTime()}
-                )
+      if (this.state.lessonInput !== ''){
+          lessonTitle = this.state.lessonInput
       }
-      else{
-        less.push(
-                          this.state.newlesson
-                        )
-      }
+      less.push(
+        {title: lessonTitle,
+         id: (new Date()).getTime()}
+      )
       var mod = this.state.module
       mod.lessons = less
       this.setState(
         {
-              module: mod
+              module: mod,
+              lessonInput: ''
         }
       )
     }
 
   deleteLesson = (deletelesson) => {
         var less = this.state.module.lessons.filter(
-                                   lesson => lesson !== deletelesson
+                                   lesson => lesson.id !== deletelesson.id
                                )
         var mod = this.state.module
         mod.lessons = less
@@ -109,27 +112,34 @@ class CourseEditor extends React.Component {
   lessonTitleChanged = (event) => {
       this.setState(
         {
-          newlesson: {title: event.target.value}
+          lessonInput: event.target.value
+
         });
   }
 
   topicTitleChanged = (event) => {
         this.setState(
           {
-            newTopic: {title: event.target.value}
+            topicInput: event.target.value
           });
     }
 
    createTopic = () => {
          var top = this.state.lesson.topics;
+         var topicTitle = 'New Topic'
+         if (this.state.topicInput !== ''){
+            topicTitle = this.state.topicInput;
+         }
                top.push(
-                 this.state.newTopic
+               {title: topicTitle,
+                id: (new Date()).getTime()}
                )
                var less = this.state.lesson
                less.topics = top
                this.setState(
                  {
-                       lesson: less
+                       lesson: less,
+                       topicInput: ''
                  }
                )
        }
@@ -150,7 +160,8 @@ class CourseEditor extends React.Component {
                         createLesson={this.createLesson}
                         lessonTitleChanged={this.lessonTitleChanged}
                         deleteLesson={this.deleteLesson}
-                        selectedLesson={this.state.lesson}/>
+                        selectedLesson={this.state.lesson}
+                        lessonInput={this.state.lessonInput}/>
         </div>
       </div>
       <div className="row">
@@ -165,7 +176,8 @@ class CourseEditor extends React.Component {
             lesson={this.state.lesson}
             createTopic={this.createTopic}
             topicTitleChanged={this.topicTitleChanged}
-            deleteTopic={this.deleteTopic}/>
+            deleteTopic={this.deleteTopic}
+            topicInput={this.state.topicInput}/>
           <WidgetList />
         </div>
       </div>

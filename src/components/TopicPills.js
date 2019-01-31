@@ -27,6 +27,7 @@ class TopicPills extends React.Component{
                 }
                 <li className="nav-item">
                             <input
+                              value={this.props.topicInput}
                               onChange={this.props.topicTitleChanged}
                               className="form-control"/>
                 </li>
