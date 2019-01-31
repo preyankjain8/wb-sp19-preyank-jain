@@ -4,6 +4,7 @@ import TopicPillItem from "./TopicPillItem";
 class TopicPills extends React.Component{
     constructor(props){
         super(props)
+        this.isActive = this.isActive.bind(this);
         if(this.props.lesson.topics === undefined){
                     this.props.lesson.topics = []
                 }
@@ -15,6 +16,9 @@ class TopicPills extends React.Component{
                         }
     }
 
+    isActive(topic){
+        return this.props.selectedTopic === topic
+    }
     render(){
         return(
             <ul className="nav nav-pills">
@@ -22,11 +26,14 @@ class TopicPills extends React.Component{
                   this.props.lesson.topics.map(topic =>
                     <TopicPillItem
                     topic={topic}
-                    deleteTopic={this.props.deleteTopic}/>
+                    deleteTopic={this.props.deleteTopic}
+                    selectedTopic = {this.isActive}
+                    selectTopic={this.props.selectTopic}/>
                   )
                 }
                 <li className="nav-item">
                             <input
+                              placeholder="New topic title"
                               value={this.props.topicInput}
                               onChange={this.props.topicTitleChanged}
                               className="form-control"/>

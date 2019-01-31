@@ -37,6 +37,7 @@ class LessonTabs extends React.Component{
                 }
                 <li className="nav-item">
                             <input
+                              placeholder="New lesson title"
                               value={this.props.lessonInput}
                               onChange={this.props.lessonTitleChanged}
                               className="form-control"/>

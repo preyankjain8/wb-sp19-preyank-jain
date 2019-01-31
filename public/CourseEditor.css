@@ -44,7 +44,7 @@
 
 #course-editor-heading{
     background: lightgrey;
-    color: white;
+    color: black;
 }
 
 
@@ -58,7 +58,7 @@
 
 
 .topic-pill {
-  color: blue;
+  color: black;
   background-color: lightgrey;
 }
 
@@ -81,5 +81,17 @@
            }
 
 .list-group-item{
+    background-color: lightgrey;
+}
+
+.fa-times{
+  color:black;
+}
+
+.fa-pencil{
+  color:black;
+}
+
+.module-list-web-dv{
     background-color: lightgrey;
 }

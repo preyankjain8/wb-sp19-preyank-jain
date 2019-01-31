@@ -17,24 +17,39 @@ class CourseEditor extends React.Component {
               course: course,
               module: {},
               lesson: {},
+              topic: {},
               lessonInput: '',
               topicInput: ''
             }
     }
-    else if(course.modules[0].lessons === undefined){
+    else if(course.modules[0].lessons === undefined ||
+            course.modules[0].lessons.length === 0){
             this.state = {
                   course: course,
                   module: course.modules[0],
                   lesson: {},
+                  topic: {},
                   lessonInput: '',
                   topicInput: ''
                 }
         }
+    else if(course.modules[0].lessons[0].topics === undefined ||
+            course.modules[0].lessons[0].topics.length === 0){
+                 this.state = {
+                       course: course,
+                       module: course.modules[0],
+                       lesson: course.modules[0].lessons[0],
+                       topic: {},
+                       lessonInput: '',
+                       topicInput: ''
+                     }
+             }
     else{
         this.state = {
                           course: course,
                           module: course.modules[0],
                           lesson: course.modules[0].lessons[0],
+                          topic: course.modules[0].lessons[0].topics[0],
                           lessonInput: '',
                           topicInput: ''
                           }
@@ -59,6 +74,12 @@ class CourseEditor extends React.Component {
       this.setState({
         lesson: lesson
       })
+
+  selectTopic = topic =>
+  this.setState
+  ({
+    topic: topic
+  })
 
   createLesson = () => {
       var lessonTitle = 'New Lesson'
@@ -177,7 +198,9 @@ class CourseEditor extends React.Component {
             createTopic={this.createTopic}
             topicTitleChanged={this.topicTitleChanged}
             deleteTopic={this.deleteTopic}
-            topicInput={this.state.topicInput}/>
+            topicInput={this.state.topicInput}
+            selectedTopic={this.state.topic}
+            selectTopic={this.selectTopic}/>
           <WidgetList />
         </div>
       </div>

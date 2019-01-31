@@ -26,9 +26,7 @@ class CourseManager extends Component {
 
   deleteCourse = (course) =>
           this.setState({
-            courses: this.state.courses.filter(
-                deletecourse => deletecourse.id !== course.id
-            )
+            courses: this.courseService.deleteCourse(course)
           })
   createCourse = () =>{
     this.setState({
@@ -50,7 +48,8 @@ class CourseManager extends Component {
                       WhiteBoard
                     </div>
                     <div className="col-7">
-                      <input onChange={this.onCourseNameChange} id="new-course-title"
+                      <input
+                      onChange={this.onCourseNameChange} id="new-course-title"
                       		placeholder="New Course Title" className="form-control">
                       </input>
                     </div>

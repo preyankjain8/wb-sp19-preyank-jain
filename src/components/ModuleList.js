@@ -62,10 +62,11 @@ class ModuleList extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="module-list-web-dv">
         <ul className="list-group">
           <li className="list-group-item">
             <input
+              placeholder="New module title"
               value={this.state.moduleInput}
               onChange={this.titleChanged}
               className="form-control" id="module-input"/>
