@@ -10,6 +10,7 @@ class CourseManager extends Component {
     super(props)
     this.courseService = new CourseService();
     this.state = {
+        courseInput: '',
         courses: this.courseService.findAllCourses()
     }
   }
@@ -17,10 +18,7 @@ class CourseManager extends Component {
   onCourseNameChange = (event) =>
   {
     this.setState({
-                newCourse: {
-                        id: (new Date()).getTime(),
-                        title: event.target.value
-                      }
+                courseInput: event.target.value
               })
   }
 
@@ -30,7 +28,12 @@ class CourseManager extends Component {
           })
   createCourse = () =>{
     this.setState({
-                    courses: this.courseService.addCourse(this.state.newCourse)
+                    courses: this.courseService.addCourse(
+                        {id: (new Date()).getTime(),
+                         title: this.state.courseInput
+                        }
+                    ),
+                    courseInput:''
                   })
 
      console.log(this.state.courses)
@@ -50,6 +53,7 @@ class CourseManager extends Component {
                     <div className="col-7">
                       <input
                       onChange={this.onCourseNameChange} id="new-course-title"
+                            value={this.state.courseInput}
                       		placeholder="New Course Title" className="form-control">
                       </input>
                     </div>
