@@ -80,6 +80,14 @@
                color: white;
            }
 
+#module-cncl-btn{
+    height: 100%;
+    width: 100%;
+    background-color: gray;
+    color: white;
+    display: none;
+    }
+
 .list-group-item{
     background-color: lightgrey;
 }

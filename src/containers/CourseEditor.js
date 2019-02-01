@@ -301,7 +301,19 @@ class CourseEditor extends React.Component {
         editModule: module
     })
     document.getElementById("module-add-btn").innerHTML="Done";
+    document.getElementById("module-cncl-btn").style.display="block";
   }
+
+  cancelModuleUpdate = () => {
+    this.setState({
+            moduleInput: '',
+            editModule: undefined
+        })
+        document.getElementById("module-add-btn").innerHTML="Add Module";
+        document.getElementById("module-cncl-btn").style.display="none";
+  }
+
+
 
   editLessonName= (lesson) => {
       this.setState({
@@ -387,7 +399,8 @@ class CourseEditor extends React.Component {
             selectModule={this.selectModule}
             module={this.state.module}
             modules={this.state.course.modules}
-            editModuleName= {this.editModuleName}/>
+            editModuleName= {this.editModuleName}
+            cancelModuleUpdate={this.cancelModuleUpdate}/>
         </div>
         <div className="col-8">
           <TopicPills

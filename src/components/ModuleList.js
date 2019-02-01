@@ -33,6 +33,11 @@ class ModuleList extends React.Component {
               id="module-add-btn"
               onClick={this.props.createModule}
               className="btn-webdv-2">Add Module</button>
+            <button
+                id="module-cncl-btn"
+                style={{display:'hidden'}}
+                onClick={this.props.cancelModuleUpdate}
+                className="btn-webdv-2">Cancel</button>
           </li>
           {
             this.props.modules.map(
