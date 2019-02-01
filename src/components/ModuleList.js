@@ -21,8 +21,8 @@ class ModuleList extends React.Component {
 
   render() {
     return(
-      <div className="module-list-web-dv">
-        <ul className="list-group">
+      <div id="module-list-web-dv">
+        <ul id="module-ulist-webdv" className="list-group">
           <li className="list-group-item">
             <input
               placeholder="New module title"

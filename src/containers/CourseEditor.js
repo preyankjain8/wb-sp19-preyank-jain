@@ -172,23 +172,28 @@ class CourseEditor extends React.Component {
     }
 
    createTopic = () => {
-         var top = this.state.lesson.topics;
-         var topicTitle = 'New Topic'
-         if (this.state.topicInput !== ''){
-            topicTitle = this.state.topicInput;
+         if (this.state.editTopic !== undefined){
+            this.editTopicFunc();
          }
-               top.push(
-               {title: topicTitle,
-                id: (new Date()).getTime()}
-               )
-               var less = this.state.lesson
-               less.topics = top
-               this.setState(
-                 {
-                       lesson: less,
-                       topicInput: ''
-                 }
-               )
+         else{
+            var top = this.state.lesson.topics;
+                     var topicTitle = 'New Topic'
+                     if (this.state.topicInput !== ''){
+                        topicTitle = this.state.topicInput;
+                     }
+                           top.push(
+                           {title: topicTitle,
+                            id: (new Date()).getTime()}
+                           )
+                           var less = this.state.lesson
+                           less.topics = top
+                           this.setState(
+                             {
+                                   lesson: less,
+                                   topicInput: ''
+                             }
+                           )
+         }
        }
 
     editModuleFunc(){
@@ -296,6 +301,28 @@ class CourseEditor extends React.Component {
           })
       }
 
+  editTopicName= (topic) => {
+        this.setState({
+            topicInput: topic.title,
+            editTopic: topic
+        })
+      }
+
+    editTopicFunc(){
+            var top = this.state.lesson.topics;
+            top.find(
+                t => t.id === this.state.editTopic.id
+            )
+            .title = this.state.topicInput;
+            var less = this.state.lesson;
+            less.topics = top;
+            this.setState({
+                lesson: less,
+                topicInput: '',
+                editTopic: undefined
+            })
+        }
+
   render() {
     return (
       <div>
@@ -335,7 +362,8 @@ class CourseEditor extends React.Component {
             deleteTopic={this.deleteTopic}
             topicInput={this.state.topicInput}
             selectedTopic={this.state.topic}
-            selectTopic={this.selectTopic}/>
+            selectTopic={this.selectTopic}
+            editTopicName={this.editTopicName}/>
           <WidgetList />
         </div>
       </div>
