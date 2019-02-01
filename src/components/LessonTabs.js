@@ -30,7 +30,7 @@ class LessonTabs extends React.Component{
                                    href="#">{lesson.title}
                       </a>
                       <i onClick={ () => this.props.deleteLesson(lesson) } class="fa fa-times" aria-hidden="true"></i>
-                      <i className="fa fa-pencil"></i>
+                      <i onClick={ () => this.props.editLessonName(lesson) } className="fa fa-pencil"></i>
                       </div>
                     </li>
                   )

@@ -22,9 +22,9 @@ class CourseEditor extends React.Component {
               lessonInput: '',
               topicInput: '',
               editing: false,
-              editModule: {},
-              editLesson: {},
-              editTopic: {}
+              editModule: undefined,
+              editLesson: undefined,
+              editTopic: undefined
             }
     }
     else if(course.modules[0].lessons === undefined ||
@@ -38,9 +38,9 @@ class CourseEditor extends React.Component {
                   lessonInput: '',
                   topicInput: '',
                   editing: false,
-                  editModule: {},
-                  editLesson: {},
-                  editTopic: {}
+                  editModule: undefined,
+                  editLesson: undefined,
+                  editTopic: undefined
                 }
         }
     else if(course.modules[0].lessons[0].topics === undefined ||
@@ -54,9 +54,9 @@ class CourseEditor extends React.Component {
                        lessonInput: '',
                        topicInput: '',
                        editing: false,
-                       editModule: {},
-                       editLesson: {},
-                       editTopic: {}
+                       editModule: undefined,
+                       editLesson: undefined,
+                       editTopic: undefined
                      }
              }
     else{
@@ -69,9 +69,9 @@ class CourseEditor extends React.Component {
                           lessonInput: '',
                           topicInput: '',
                           editing: false,
-                          editModule: {},
-                          editLesson: {},
-                          editTopic: {}
+                          editModule: undefined,
+                          editLesson: undefined,
+                          editTopic: undefined
                           }
     }
   }
@@ -102,23 +102,29 @@ class CourseEditor extends React.Component {
   })
 
   createLesson = () => {
-      var lessonTitle = 'New Lesson'
-      var less = this.state.module.lessons;
-      if (this.state.lessonInput !== ''){
-          lessonTitle = this.state.lessonInput
+      if (this.state.editLesson !== undefined){
+        this.editLessonFunc();
       }
-      less.push(
-        {title: lessonTitle,
-         id: (new Date()).getTime()}
-      )
-      var mod = this.state.module
-      mod.lessons = less
-      this.setState(
-        {
-              module: mod,
-              lessonInput: ''
-        }
-      )
+      else{
+        var lessonTitle = 'New Lesson'
+              var less = this.state.module.lessons;
+              if (this.state.lessonInput !== ''){
+                  lessonTitle = this.state.lessonInput
+              }
+              less.push(
+                {title: lessonTitle,
+                 id: (new Date()).getTime()}
+              )
+              var mod = this.state.module
+              mod.lessons = less
+              this.setState(
+                {
+                      module: mod,
+                      lessonInput: ''
+                }
+              )
+      }
+
     }
 
   deleteLesson = (deletelesson) => {
@@ -198,6 +204,7 @@ class CourseEditor extends React.Component {
             moduleInput: '',
             editModule: undefined
         })
+        document.getElementById("module-add-btn").innerHTML="Add Module";
     }
 
     createModule = () => {
@@ -264,7 +271,31 @@ class CourseEditor extends React.Component {
         moduleInput: module.title,
         editModule: module
     })
+    document.getElementById("module-add-btn").innerHTML="Done";
   }
+
+  editLessonName= (lesson) => {
+      this.setState({
+          lessonInput: lesson.title,
+          editLesson: lesson
+      })
+    }
+
+  editLessonFunc(){
+          var less = this.state.module.lessons;
+          less.find(
+              l => l.id === this.state.editLesson.id
+          )
+          .title = this.state.lessonInput;
+          var mod = this.state.module;
+          mod.lessons = less;
+          this.setState({
+              module: mod,
+              lessonInput: '',
+              editLesson: undefined
+          })
+      }
+
   render() {
     return (
       <div>
@@ -280,7 +311,8 @@ class CourseEditor extends React.Component {
                         lessonTitleChanged={this.lessonTitleChanged}
                         deleteLesson={this.deleteLesson}
                         selectedLesson={this.state.lesson}
-                        lessonInput={this.state.lessonInput}/>
+                        lessonInput={this.state.lessonInput}
+                        editLessonName={this.editLessonName}/>
         </div>
       </div>
       <div className="row">

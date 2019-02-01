@@ -30,6 +30,7 @@ class ModuleList extends React.Component {
               onChange={this.props.titleChanged}
               className="form-control" id="module-input"/>
             <button
+              id="module-add-btn"
               onClick={this.props.createModule}
               className="btn-webdv-2">Add Module</button>
           </li>
