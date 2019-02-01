@@ -80,6 +80,14 @@
                color: white;
            }
 
+#lsn-cncl-btn{
+    display: none;
+}
+
+#top-cncl-btn{
+    display: none;
+}
+
 #module-cncl-btn{
     height: 100%;
     width: 100%;

@@ -44,6 +44,12 @@ class TopicPills extends React.Component{
                                   onClick={this.props.createTopic}
                                   className="btn-webdv"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </li>
+                <li className="nav-item">
+                                                <button
+                                                  id="top-cncl-btn"
+                                                  onClick={this.props.cancelTopicUpdate}
+                                                  className="btn-webdv"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                </li>
               </ul>
         )
     }

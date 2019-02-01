@@ -49,6 +49,12 @@ class LessonTabs extends React.Component{
                                   onClick={this.props.createLesson}
                                   className="btn-webdv"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </li>
+                <li className="nav-item">
+                                                <button
+                                                  id="lsn-cncl-btn"
+                                                  onClick={this.props.cancelLessonUpdate}
+                                                  className="btn-webdv"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                </li>
               </ul>
         )
     }

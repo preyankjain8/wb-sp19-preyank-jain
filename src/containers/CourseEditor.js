@@ -320,7 +320,16 @@ class CourseEditor extends React.Component {
           lessonInput: lesson.title,
           editLesson: lesson
       })
+      document.getElementById("lsn-cncl-btn").style.display="block";
     }
+
+    cancelLessonUpdate = () => {
+        this.setState({
+                lessonInput: '',
+                editLesson: undefined
+            })
+        document.getElementById("lsn-cncl-btn").style.display="none";
+      }
 
   editLessonFunc(){
           var less = this.state.module.lessons;
@@ -342,7 +351,16 @@ class CourseEditor extends React.Component {
             topicInput: topic.title,
             editTopic: topic
         })
+        document.getElementById("top-cncl-btn").style.display="block";
       }
+
+  cancelTopicUpdate = () => {
+          this.setState({
+                  topicInput: '',
+                  editTopic: undefined
+              })
+          document.getElementById("top-cncl-btn").style.display="none";
+        }
 
     editTopicFunc(){
             var top = this.state.lesson.topics;
@@ -386,7 +404,8 @@ class CourseEditor extends React.Component {
                         deleteLesson={this.deleteLesson}
                         selectedLesson={this.state.lesson}
                         lessonInput={this.state.lessonInput}
-                        editLessonName={this.editLessonName}/>
+                        editLessonName={this.editLessonName}
+                        cancelLessonUpdate={this.cancelLessonUpdate}/>
         </div>
       </div>
       <div className="row">
@@ -411,7 +430,8 @@ class CourseEditor extends React.Component {
             topicInput={this.state.topicInput}
             selectedTopic={this.state.topic}
             selectTopic={this.selectTopic}
-            editTopicName={this.editTopicName}/>
+            editTopicName={this.editTopicName}
+            cancelTopicUpdate={this.cancelTopicUpdate}/>
           <WidgetList />
         </div>
       </div>
