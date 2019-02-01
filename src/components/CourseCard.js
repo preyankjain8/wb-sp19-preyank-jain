@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
 const CourseCard = ({course, deleteCourse}) =>
-  <div className="card col-sm-6 col-md-4 col-lg-3"
+  <div className="card col-sm-12 col-md-4 col-lg-2"
        styles={{width: '18rem'}}>
     <img className="card-img-top"
          src="https://picsum.photos/300/200"/>
@@ -14,5 +14,6 @@ const CourseCard = ({course, deleteCourse}) =>
       <i className="fa fa-file-text" aria-hidden="true"></i> Modified 6:45 PM
       <i onClick={ () => deleteCourse(course) } className="fa fa-trash float-right"></i>
       </p>
-    </div></div>
+    </div>
+  </div>
 export default CourseCard;

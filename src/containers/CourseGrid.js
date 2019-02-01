@@ -25,7 +25,7 @@ const CourseGrid = ({courses, deleteCourse, addCourse}) =>
                         <i class="fa fa-file" aria-hidden="true"></i>
                         </div>
     </div>
-    <div className="card-deck">
+    <div className="row">
     {
         courses.map(course =>
           <CourseCard
