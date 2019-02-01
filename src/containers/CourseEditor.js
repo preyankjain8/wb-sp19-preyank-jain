@@ -106,23 +106,28 @@ class CourseEditor extends React.Component {
         this.editLessonFunc();
       }
       else{
-        var lessonTitle = 'New Lesson'
-              var less = this.state.module.lessons;
-              if (this.state.lessonInput !== ''){
-                  lessonTitle = this.state.lessonInput
-              }
-              less.push(
-                {title: lessonTitle,
-                 id: (new Date()).getTime()}
-              )
-              var mod = this.state.module
-              mod.lessons = less
-              this.setState(
-                {
-                      module: mod,
-                      lessonInput: ''
-                }
-              )
+        if(this.state.module.id == undefined){
+            alert("Please select a module first!")
+        }
+        else{
+            var lessonTitle = 'New Lesson'
+                          var less = this.state.module.lessons;
+                          if (this.state.lessonInput !== ''){
+                              lessonTitle = this.state.lessonInput
+                          }
+                          less.push(
+                            {title: lessonTitle,
+                             id: (new Date()).getTime()}
+                          )
+                          var mod = this.state.module
+                          mod.lessons = less
+                          this.setState(
+                            {
+                                  module: mod,
+                                  lessonInput: ''
+                            }
+                          )
+        }
       }
 
     }
@@ -138,6 +143,7 @@ class CourseEditor extends React.Component {
             this.setState(
                       {
                         module: mod,
+                        lesson: {},
                         topic: {}
                       }
                     )
@@ -145,7 +151,8 @@ class CourseEditor extends React.Component {
         else{
             this.setState(
                       {
-                        module: mod
+                        module: mod,
+                        lesson: {}
                       }
                     )
         }
@@ -187,23 +194,28 @@ class CourseEditor extends React.Component {
             this.editTopicFunc();
          }
          else{
-            var top = this.state.lesson.topics;
-                     var topicTitle = 'New Topic'
-                     if (this.state.topicInput !== ''){
-                        topicTitle = this.state.topicInput;
-                     }
-                           top.push(
-                           {title: topicTitle,
-                            id: (new Date()).getTime()}
-                           )
-                           var less = this.state.lesson
-                           less.topics = top
-                           this.setState(
-                             {
-                                   lesson: less,
-                                   topicInput: ''
-                             }
-                           )
+            if(this.state.lesson.title === undefined){
+                        alert("Please select a lesson first!")
+                      }
+             else{
+                var top = this.state.lesson.topics;
+                                     var topicTitle = 'New Topic'
+                                     if (this.state.topicInput !== ''){
+                                        topicTitle = this.state.topicInput;
+                                     }
+                                           top.push(
+                                           {title: topicTitle,
+                                            id: (new Date()).getTime()}
+                                           )
+                                           var less = this.state.lesson
+                                           less.topics = top
+                                           this.setState(
+                                             {
+                                                   lesson: less,
+                                                   topicInput: ''
+                                             }
+                                           )
+             }
          }
        }
 
@@ -263,6 +275,7 @@ class CourseEditor extends React.Component {
           var cor = this.state.course
           cor.modules = mod
           if(this.state.module.id === moduleId){
+            console.log("inside")
             this.setState(
                         {
                           course: cor,

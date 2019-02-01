@@ -10,7 +10,9 @@ class LessonTabs extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+    console.log(nextProps.module)
             if(nextProps.module.lessons === undefined){
+                console.log("inside lessonTabs")
                                 nextProps.module.lessons = []
                             }
         }
