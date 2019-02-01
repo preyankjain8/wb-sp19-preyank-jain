@@ -111,3 +111,17 @@
 #module-ulist-webdv ul{
     background-color: lightgrey;
 }
+
+#web-dv-list-item{
+    background-color: lightgrey;
+    color: black;
+}
+
+#module-input-fld{
+    background-color: lightgrey;
+        color: black;
+}
+
+#web-dv-list-item.active{
+    background-color: gray;
+}

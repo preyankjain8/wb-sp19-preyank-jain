@@ -23,7 +23,8 @@ class ModuleList extends React.Component {
     return(
       <div id="module-list-web-dv">
         <ul id="module-ulist-webdv" className="list-group">
-          <li className="list-group-item">
+          <li className="list-group-item"
+              id="module-input-fld">
             <input
               placeholder="New module title"
               value={this.props.moduleInput}
