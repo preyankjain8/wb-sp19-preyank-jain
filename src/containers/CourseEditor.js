@@ -347,6 +347,17 @@ class CourseEditor extends React.Component {
             })
         }
 
+  componentDidMount(){
+    document.getElementById("new-course-title").style.display="none";
+    document.getElementById("add-course-btn").style.display="none";
+  }
+
+  componentWillUnmount(){
+        document.getElementById("new-course-title").style.display="block";
+        document.getElementById("add-course-btn").style.display="block";
+  }
+
+
   render() {
     return (
       <div>

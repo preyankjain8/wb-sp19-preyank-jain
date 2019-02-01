@@ -7,7 +7,8 @@ const CourseRow = ({courseId,title, deleteCourse, course}) =>
     <td class="empty-column d-none d-md-table-cell"></td>
     <div>
         <td>
-                <Link to={"/course/"+ courseId}>
+                <Link
+                to={"/course/"+ courseId}>
                     <i class="fa fa-file-text" aria-hidden="true"></i>
                     { title}
                 </Link>

@@ -54,7 +54,7 @@ class CourseManager extends Component {
                       </input>
                     </div>
                     <div className="col-2">
-                    	<i onClick={ () =>  this.createCourse()} className="fa fa-2x fa-plus-circle"></i>
+                    	<i id="add-course-btn" onClick={ () =>  this.createCourse()} className="fa fa-2x fa-plus-circle"></i>
                     </div>
       </div>
               <div>
