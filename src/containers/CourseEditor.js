@@ -133,11 +133,22 @@ class CourseEditor extends React.Component {
                                )
         var mod = this.state.module
         mod.lessons = less
-        this.setState(
-          {
-            module: mod
-          }
-        )
+
+        if(this.state.lesson.id === deletelesson.id){
+            this.setState(
+                      {
+                        module: mod,
+                        topic: {}
+                      }
+                    )
+        }
+        else{
+            this.setState(
+                      {
+                        module: mod
+                      }
+                    )
+        }
       }
 
   deleteTopic = (deletetopic) => {
@@ -327,7 +338,7 @@ class CourseEditor extends React.Component {
     return (
       <div>
       <div className="row" id="course-editor-second-row">
-        <div className="col-4">
+        <div className="col-4 d-none d-md-block">
             <h4 id="course-editor-heading">Course Editor: {this.state.course.title}</h4>
         </div>
         <div className="col-8">
@@ -343,7 +354,7 @@ class CourseEditor extends React.Component {
         </div>
       </div>
       <div className="row">
-        <div className="col-4" id="course-editor-module-list">
+        <div className="col-4 d-none d-md-block" id="course-editor-module-list">
           <ModuleList
             moduleInput={this.state.moduleInput}
             titleChanged={this.titleChanged}
