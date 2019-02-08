@@ -128,6 +128,35 @@ class CourseEditor extends React.Component {
 
   }
 
+  moveUpWidget = widget =>{
+    let index = this.state.widgets.indexOf(widget);
+    var top =  this.state.topic
+    var widge = top.widgets
+    widge.move(index, index - 1);
+    widge = widge.splice(0);
+    top.widgets = widge
+    this.setState
+            ({
+            topic: top,
+            widgets: widge
+            })
+  }
+
+  moveDownWidget = widget => {
+    let index = this.state.widgets.indexOf(widget);
+        var top =  this.state.topic
+        var widge = top.widgets
+        widge.move(index - 1, index);
+        widge = widge.splice(0);
+        top.widgets = widge
+        this.setState
+                ({
+                topic: top,
+                widgets: widge
+                })
+
+  }
+
   createLesson = () => {
       if (this.state.editLesson !== undefined){
         this.editLessonFunc();
@@ -462,7 +491,9 @@ class CourseEditor extends React.Component {
           <Provider store={store}>
               <WidgetListContainer
               widgets={this.state.widgets}
-              deleteWidget={this.deleteWidget}/>
+              deleteWidget={this.deleteWidget}
+              moveUpWidget={this.moveUpWidget}
+              moveDownWidget={this.moveDownWidget}/>
           </Provider>
         </div>
       </div>
