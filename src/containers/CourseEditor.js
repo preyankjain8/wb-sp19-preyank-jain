@@ -114,6 +114,20 @@ class CourseEditor extends React.Component {
     widgets: topic.widgets
   })
 
+  deleteWidget = widgetId =>{
+
+    var top =  this.state.topic
+        var widge = top.widgets
+        widge = widge.filter(widget => widget.id !== widgetId)
+        top.widgets = widge
+        this.setState
+        ({
+        topic: top,
+        widgets: this.state.widgets.filter(widget => widget.id !== widgetId)
+        })
+
+  }
+
   createLesson = () => {
       if (this.state.editLesson !== undefined){
         this.editLessonFunc();
@@ -447,7 +461,8 @@ class CourseEditor extends React.Component {
             cancelTopicUpdate={this.cancelTopicUpdate}/>
           <Provider store={store}>
               <WidgetListContainer
-              widgets={this.state.widgets}/>
+              widgets={this.state.widgets}
+              deleteWidget={this.deleteWidget}/>
           </Provider>
         </div>
       </div>

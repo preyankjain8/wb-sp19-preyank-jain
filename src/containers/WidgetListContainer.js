@@ -10,11 +10,13 @@ const stateToPropertyMapper = (state, props) => ({
 })
 
 const dispatchToPropertyMapper = (dispatch, props) => ({
-    deleteWidget: widget =>
-        dispatch({
-            type: 'DELETE_WIDGET',
-            widget: widget
-        }),
+    deleteWidget: widget =>{
+        props.deleteWidget(widget.id);
+        (dispatch({
+                type: 'DELETE_WIDGET',
+                widget: widget
+                    }))
+    },
     addWidget: () =>
         dispatch({
             type: 'ADD_WIDGET'

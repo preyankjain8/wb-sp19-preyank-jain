@@ -46,6 +46,7 @@ const widgetReducer = (state = {widgets:[]}, action) => {
                     var newState = {widgets: action.widgets}
                     return Object.assign({}, newState)
 
+
         case 'MOVE_UP':
              let index = state.widgets.indexOf(action.widget);
               state.widgets.move(index, index - 1);
