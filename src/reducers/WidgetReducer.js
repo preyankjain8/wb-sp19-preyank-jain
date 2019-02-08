@@ -15,7 +15,10 @@ const widgets =
             }
         ]
     }
-const widgetReducer = (state = widgets, action) => {
+
+
+
+const widgetReducer = (state = {widgets:[]}, action) => {
     switch(action.type) {
         case 'DELETE_WIDGET':
             return {
@@ -39,6 +42,14 @@ const widgetReducer = (state = widgets, action) => {
                     widget.id === action.widget.id ? action.widget : widget
                 )
             }
+        case 'LOAD_WIDGET':
+                    var newState = {widgets: action.widgets}
+                    return Object.assign({}, newState)
+
+        case 'MOVE_UP':
+             let index = state.widgets.indexOf(action.widget);
+              state.widgets.move(index, index - 1);
+              return state.widgets.splice(0);
         case 'FIND_ALL_WIDGETS_FOR_TOPIC':
             return{
                 widgets: state.widgets

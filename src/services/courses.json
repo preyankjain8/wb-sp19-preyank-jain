@@ -13,11 +13,39 @@
             "topics": [
               {
                 "id": 1,
-                "title": "Topic 1"
+                "title": "Topic 1",
+                "widgets": [
+                  {
+                    "id": 123,
+                    "Name": "Widget 1",
+                    "type": "HEADING",
+                    "text": "This is a heading",
+                    "size": 2
+                  },
+                  {
+                    "id": 234,
+                    "Name": "Widget 2",
+                    "type": "IMAGE"
+                  }
+                ]
               },
               {
                 "id": 2,
-                "title": "Topic 2"
+                "title": "Topic 2",
+                "widgets": [
+                  {
+                    "id": 123,
+                    "Name": "Widget 3",
+                    "type": "HEADING",
+                    "text": "This is a heading",
+                    "size": 2
+                  },
+                  {
+                    "id": 234,
+                    "Name": "Widget 4",
+                    "type": "IMAGE"
+                  }
+                ]
               }
             ]
           },
@@ -27,11 +55,39 @@
             "topics": [
               {
                 "id": 1,
-                "title": "Topic 3"
+                "title": "Topic 3",
+                "widgets": [
+                  {
+                    "id": 123,
+                    "Name": "Widget 5",
+                    "type": "HEADING",
+                    "text": "This is a heading",
+                    "size": 2
+                  },
+                  {
+                    "id": 234,
+                    "Name": "Widget 6",
+                    "type": "IMAGE"
+                  }
+                ]
               },
               {
                 "id": 2,
-                "title": "Topic 4"
+                "title": "Topic 4",
+                "widgets": [
+                  {
+                    "id": 123,
+                    "Name": "Widget 7",
+                    "type": "HEADING",
+                    "text": "This is a heading",
+                    "size": 2
+                  },
+                  {
+                    "id": 234,
+                    "Name": "Widget 8",
+                    "type": "IMAGE"
+                  }
+                ]
               }
             ]
           }

@@ -2,11 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import WidgetList from '../components/WidgetList'
 
-const stateToPropertyMapper = state => ({
+
+
+
+const stateToPropertyMapper = (state, props) => ({
     widgets: state.widgets
 })
 
-const dispatchToPropertyMapper = dispatch => ({
+const dispatchToPropertyMapper = (dispatch, props) => ({
     deleteWidget: widget =>
         dispatch({
             type: 'DELETE_WIDGET',
@@ -16,6 +19,21 @@ const dispatchToPropertyMapper = dispatch => ({
         dispatch({
             type: 'ADD_WIDGET'
         }),
+    moveDownWidget: widget =>
+        dispatch({
+            type: 'MOVE_DOWN',
+            widget: widget
+        }),
+    moveUpWidget: widget =>
+         dispatch({
+            type: 'MOVE_UP',
+            widget: widget
+         }),
+    loadWidget: () =>
+        dispatch({
+                    type: 'LOAD_WIDGET',
+                    widgets: props.widgets
+                }),
     updateWidget: widget =>
         dispatch({
             type: 'UPDATE_WIDGET',

@@ -1,7 +1,7 @@
 import React from 'react'
 import WidgetComponent from './WidgetComponent'
-const WidgetList = ({widgets, addWidget, deleteWidget, updateWidget}) =>
-    <div>
+const WidgetList = ({widgets, addWidget, deleteWidget, updateWidget, loadWidget, moveUpWidget, moveDownWidget}) =>
+    <div onLoad={loadWidget()}>
         <div className="list-group">
         {
             widgets.map(widget =>
@@ -9,7 +9,9 @@ const WidgetList = ({widgets, addWidget, deleteWidget, updateWidget}) =>
                     key={widget.id}
                     updateWidget={updateWidget}
                     deleteWidget={deleteWidget}
-                    widget={widget}/>
+                    widget={widget}
+                    moveDownWidget={moveDownWidget}
+                    moveUpWidget={moveUpWidget}/>
             )
         }
         <button

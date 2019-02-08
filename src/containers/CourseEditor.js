@@ -8,12 +8,14 @@ import WidgetListContainer from './WidgetListContainer'
 import widgetReducer from '../reducers/WidgetReducer'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
+import { combineReducers } from 'redux'
 
 const store = createStore(widgetReducer);
 
 class CourseEditor extends React.Component {
   constructor(props) {
     super(props)
+    const widgets =
     this.courseService = new CourseService()
     const courseId = parseInt(props.match.params.id)
     const course = this.courseService.findCourseById(courseId)
@@ -24,6 +26,7 @@ class CourseEditor extends React.Component {
               module: {},
               lesson: {},
               topic: {},
+              widgets: {},
               moduleInput: '',
               lessonInput: '',
               topicInput: '',
@@ -40,6 +43,7 @@ class CourseEditor extends React.Component {
                   module: course.modules[0],
                   lesson: {},
                   topic: {},
+                  widgets: {},
                   moduleInput: '',
                   lessonInput: '',
                   topicInput: '',
@@ -56,6 +60,7 @@ class CourseEditor extends React.Component {
                        module: course.modules[0],
                        lesson: course.modules[0].lessons[0],
                        topic: {},
+                       widgets: {},
                        moduleInput: '',
                        lessonInput: '',
                        topicInput: '',
@@ -71,6 +76,7 @@ class CourseEditor extends React.Component {
                           module: course.modules[0],
                           lesson: course.modules[0].lessons[0],
                           topic: course.modules[0].lessons[0].topics[0],
+                          widgets: course.modules[0].lessons[0].topics[0].widgets,
                           moduleInput: '',
                           lessonInput: '',
                           topicInput: '',
@@ -104,7 +110,8 @@ class CourseEditor extends React.Component {
   selectTopic = topic =>
   this.setState
   ({
-    topic: topic
+    topic: topic,
+    widgets: topic.widgets
   })
 
   createLesson = () => {
@@ -439,7 +446,8 @@ class CourseEditor extends React.Component {
             editTopicName={this.editTopicName}
             cancelTopicUpdate={this.cancelTopicUpdate}/>
           <Provider store={store}>
-              <WidgetListContainer/>
+              <WidgetListContainer
+              widgets={this.state.widgets}/>
           </Provider>
         </div>
       </div>

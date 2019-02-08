@@ -2,15 +2,17 @@ import React from 'react'
 import HeadingWidget from './HeadingWidget'
 import ImageWidget from './ImageWidget'
 
-const WidgetComponent = ({widget, deleteWidget, updateWidget}) =>
+    const WidgetComponent = ({widget, deleteWidget, updateWidget, moveUpWidget, moveDownWidget}) =>
     <div>
         <h1 className="float-left">Heading widget</h1>
         <div className="float-right row">
             <div>
-                        <i className="fa fa-2x fa-chevron-down" aria-hidden="true"></i>
+                        <i onClick={(event) => {moveDownWidget(widget)}}
+                        className="fa fa-2x fa-chevron-down" aria-hidden="true"></i>
                         </div>
                         <div>
-                        <i className="fa fa-2x fa-chevron-up" aria-hidden="true"></i>
+                        <i onClick={(event) => {moveUpWidget(widget)}}
+                        className="fa fa-2x fa-chevron-up" aria-hidden="true"></i>
                         </div>
             <div>
             <select
