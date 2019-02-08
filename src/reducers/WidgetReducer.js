@@ -3,14 +3,14 @@ const widgets =
         widgets: [
             {
                 id: 123,
-                title: 'Widget 1',
+                Name: 'Widget 1',
                 type: 'HEADING',
                 text: 'This is a heading',
                 size: 2
             },
             {
                 id: 234,
-                title: 'Widget 2',
+                Name: 'Widget 2',
                 type: 'IMAGE'
             }
         ]
@@ -38,6 +38,10 @@ const widgetReducer = (state = widgets, action) => {
                 widgets: state.widgets.map(widget =>
                     widget.id === action.widget.id ? action.widget : widget
                 )
+            }
+        case 'FIND_ALL_WIDGETS_FOR_TOPIC':
+            return{
+                widgets: state.widgets
             }
         default:
             return state;
