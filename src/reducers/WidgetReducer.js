@@ -55,13 +55,15 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
 
         case 'MOVE_DOWN_WIDGET':
             var index = state.widgets.indexOf(action.widget);
-            if(index === widgets.length - 1){
+            if(index === state.widgets.length - 1){
                 alert("Can't move the last widget down!")
-                return
+                return state
             }
-            state.widgets.move(index, index + 1);
-            return {widgets: state.widgets.splice(0),
-            reload: false};
+            else{
+                state.widgets.move(index, index + 1);
+                return {widgets: state.widgets.splice(0),
+                        preview: state.preview};
+            }
 
         case 'MOVE_UP_WIDGET':
               var index = state.widgets.indexOf(action.widget);
