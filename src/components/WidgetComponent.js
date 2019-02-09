@@ -3,6 +3,7 @@ import HeadingWidget from './HeadingWidget'
 import ImageWidget from './ImageWidget'
 import ParagraphWidget from './ParagraphWidget'
 import ListWidget from './ListWidget'
+import LinkWidget from './LinkWidget'
 
     const WidgetComponent = ({widget, deleteWidget, updateWidget, moveUpWidget, moveDownWidget}) =>
     <div>
@@ -54,7 +55,11 @@ import ListWidget from './ListWidget'
                     widget={widget}/>  ||
             widget.type=='LIST'   && <ListWidget
                 updateWidget={updateWidget}
+                widget={widget}/>   ||
+            widget.type=='LINK'   && <LinkWidget
+                updateWidget={updateWidget}
                 widget={widget}/>
+
         }
     </div>
 

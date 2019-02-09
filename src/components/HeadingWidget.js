@@ -57,22 +57,22 @@ const HeadingWidget = ({widget, updateWidget}) =>
             			   <br />
 
             	<div class="form-group row">
-                          	            <div className="col-sm-2">
-                          	               <label for="widget-name">
-                          	               Widget Name
-                          	               </label>
-                          	            </div>
-                                        <div
-                                        className="col-sm-10">
-                                        <input
-                                                                value={widget.Name}
-                                                                onChange={event => {
-                                                                    widget.Name = event.target.value
-                                                                    updateWidget(widget)
-                                                                }}
-                                                        className="widget-field"
-                                                        id="widget-name"/>
-                                        </div>
+            	<div className="col-sm-2">
+            	<label for="widget-name">
+            	Widget Name
+            	</label>
+            	</div>
+            	<div
+            	className="col-sm-10">
+            	<input
+            	value={widget.Name}
+            	onChange={event => {
+            	widget.Name = event.target.value
+            	updateWidget(widget)
+            	}}
+            	className="widget-field"
+            	id="widget-name"/>
+            	</div>
                 </div>
                 	   <br />
             		   <br />

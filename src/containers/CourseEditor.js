@@ -586,7 +586,8 @@ class CourseEditor extends React.Component {
               moveDownWidget={this.moveDownWidget}
               addWidget={this.addWidget}
               reloadWidgets={this.state.reloadWidgets}
-              toggleReload={this.toggleReload}/>
+              toggleReload={this.toggleReload}
+              saveWidgets={this.}/>
           </Provider>
         </div>
       </div>

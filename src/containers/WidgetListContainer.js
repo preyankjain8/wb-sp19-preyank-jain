@@ -65,6 +65,9 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
         dispatch({
             type: 'TOGGLE_PREVIEW'
         }),
+    saveWidgets: widgets =>{
+        props.saveWidgets(widgets)
+    }
 })
 
 const WidgetListContainer = connect(
