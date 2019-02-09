@@ -1,23 +1,3 @@
-const widgets =
-    {
-        widgets: [
-            {
-                id: 123,
-                Name: 'Widget 1',
-                type: 'HEADING',
-                text: 'This is a heading',
-                size: 2
-            },
-            {
-                id: 234,
-                Name: 'Widget 2',
-                type: 'IMAGE'
-            }
-        ]
-    }
-
-
-
 const widgetReducer = (state = {widgets:[], preview: true}, action) => {
     switch(action.type) {
         case 'DELETE_WIDGET':
