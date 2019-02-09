@@ -61,6 +61,10 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
             type: 'UPDATE_WIDGET',
             widget: widget
         }),
+     togglePreview: widgets =>
+        dispatch({
+            type: 'TOGGLE_PREVIEW'
+        }),
 })
 
 const WidgetListContainer = connect(

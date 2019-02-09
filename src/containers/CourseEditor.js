@@ -95,14 +95,38 @@ class CourseEditor extends React.Component {
     if (module.lessons === undefined || module.lessons.length === 0){
         this.setState({
                   module: module,
-                  lesson: {}
+                  lesson: {},
+                  reloadWidgets: true
                 })
+    }
+    else if (module.lessons.length > 0 && module.lessons[0].topics === undefined)
+    {
+        this.setState({
+                          module: module,
+                          lesson: module.lessons[0],
+                          topic: {},
+                          widgets: [],
+                          reloadWidgets: true
+
+                        })
+    }
+    else if (module.lessons[0].topics.length > 0 && module.lessons[0].topics[0].widgets === undefined)
+    {
+    this.setState({
+            module: module,
+            lesson: module.lessons[0],
+            topic: module.lessons[0].topics[0],
+            widgets: [],
+            reloadWidgets: true
+            })
     }
     else{
         this.setState({
-                          module: module,
-                          lesson: module.lessons[0]
-                        })
+                    module: module,
+                    lesson: module.lessons[0],
+                    topic: module.lessons[0].topics[0],
+                    widgets: module.lessons[0].topics[0].widgets
+                    })
     }
   }
 
@@ -111,13 +135,16 @@ class CourseEditor extends React.Component {
         lesson: lesson
       })
 
-  selectTopic = topic =>
-  this.setState
-  ({
-    topic: topic,
-    widgets: topic.widgets,
-    reloadWidgets: true
-  })
+  selectTopic = topic =>{
+        if(topic.widgets === undefined){
+            this.setState
+              ({
+                topic: topic,
+                widgets: [],
+                reloadWidgets: true
+              })
+        }
+  }
 
   deleteWidget = widgetId =>{
 
@@ -522,6 +549,7 @@ class CourseEditor extends React.Component {
             cancelTopicUpdate={this.cancelTopicUpdate}/>
           <Provider store={store}>
               <WidgetListContainer
+              topic={this.state.topic}
               widgets={this.state.widgets}
               deleteWidget={this.deleteWidget}
               moveUpWidget={this.moveUpWidget}

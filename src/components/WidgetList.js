@@ -1,16 +1,18 @@
 import React from 'react'
 import WidgetComponent from './WidgetComponent'
-
+import ToggleButton from 'react-toggle-button'
 
 const WidgetList = ({widgets, preview, addWidget, deleteWidget, updateWidget, loadWidget, moveUpWidget,
                      togglePreview, moveDownWidget}) =>
     <div onLoad={loadWidget()}>
 
-        <div className="row float-right">
-            <div className="">
+        <div className="float-right">
+            <div className="row">
                 <button className="btn btn-success">Save</button>
-                <div> Preview <Toggle defaultChecked={preview}
-                      onChange={() => togglePreview(widgets)}/>
+                <div> Preview
+                <ToggleButton
+                  value={preview}
+                  onToggle={togglePreview}/>
                 </div>
             </div>
         </div>
@@ -33,7 +35,7 @@ const WidgetList = ({widgets, preview, addWidget, deleteWidget, updateWidget, lo
                     <button
                         onClick={addWidget}
                         className="btn btn-success">
-                        Add
+                        Add New Widget
                     </button>
                     </div>
 
