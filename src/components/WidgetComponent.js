@@ -61,6 +61,7 @@ import LinkWidget from './LinkWidget'
                 widget={widget}/>
 
         }
+        <hr/>
     </div>
 
 export default WidgetComponent
