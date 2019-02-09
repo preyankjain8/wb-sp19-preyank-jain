@@ -125,3 +125,7 @@
 #web-dv-list-item.active{
     background-color: gray;
 }
+
+.card{
+    outline: green;
+}

@@ -37,19 +37,19 @@ const HeadingWidget = ({widget, updateWidget}) =>
                     </div>
                     <div className="col-sm-10">
                         <select
-                                            id="heading-size-selector"
-                                            className="widget-field"
-                                            onChange={event => {
-                                                                    widget.size = parseInt(event.target.value)
-                                                                        updateWidget(widget)
-                                                                    }}
-                                                                    className="widget-field">
-                                                                    <option value="1">Heading 1</option>
-                                                                    <option value="2">Heading 2</option>
-                                                                    <option value="3">Heading 3</option>
-                                                                    <option value="4">Heading 4</option>
-                                                                    <option value="5">Heading 5</option>
-                                                            </select>
+                        id="heading-size-selector"
+                        className="widget-field"
+                        onChange={event => {
+                        widget.size = parseInt(event.target.value)
+                        updateWidget(widget)
+                        }}
+                        className="widget-field">
+                        <option value="1">Heading 1</option>
+                        <option value="2">Heading 2</option>
+                        <option value="3">Heading 3</option>
+                        <option value="4">Heading 4</option>
+                        <option value="5">Heading 5</option>
+                        </select>
                    </div>
                 </div>
 

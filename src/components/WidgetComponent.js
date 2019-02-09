@@ -1,10 +1,21 @@
 import React from 'react'
 import HeadingWidget from './HeadingWidget'
 import ImageWidget from './ImageWidget'
+import ParagraphWidget from './ParagraphWidget'
+import ListWidget from './ListWidget'
 
     const WidgetComponent = ({widget, deleteWidget, updateWidget, moveUpWidget, moveDownWidget}) =>
     <div>
-        <h1 className="float-left">Heading widget</h1>
+        <br />
+        <div className="float-left">
+            {
+            widget.type=='HEADING' && <h1>Heading Widget</h1>||
+            widget.type=='IMAGE' && <h1>Image Widget</h1>||
+            widget.type=='PARAGRAPH' && <h1>Paragraph Widget</h1>||
+            widget.type=='LINK' && <h1>Link Widget</h1>||
+            widget.type=='LIST' && <h1>List Widget</h1>
+            }
+        </div>
         <div className="float-right row">
             <div>
                         <i onClick={(event) => {moveDownWidget(widget)}}
@@ -23,6 +34,9 @@ import ImageWidget from './ImageWidget'
                                     className="form-control" value={widget.type}>
                                     <option value="HEADING">Heading</option>
                                     <option value="IMAGE">Image</option>
+                                    <option value="PARAGRAPH">Paragraph</option>
+                                    <option value="LIST">List</option>
+                                    <option value="LINK">Link</option>
                                 </select>
             </div>
             <div><i onClick={() => deleteWidget(widget)} className="fa fa-2x fa-window-close" aria-hidden="true"></i></div>
@@ -34,7 +48,13 @@ import ImageWidget from './ImageWidget'
                     widget={widget}/> ||
             widget.type=='IMAGE'   && <ImageWidget
                     updateWidget={updateWidget}
-                    widget={widget}/>
+                    widget={widget}/> ||
+            widget.type=='PARAGRAPH'   && <ParagraphWidget
+                    updateWidget={updateWidget}
+                    widget={widget}/>  ||
+            widget.type=='LIST'   && <ListWidget
+                updateWidget={updateWidget}
+                widget={widget}/>
         }
     </div>
 
