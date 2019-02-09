@@ -17,10 +17,12 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
                 widget: widget
                     }))
     },
-    addWidget: () =>
+    addWidget: () =>{
+        props.addWidget();
         dispatch({
-            type: 'ADD_WIDGET'
-        }),
+                    type: 'ADD_WIDGET'
+                })
+    },
     moveDownWidget: widget =>{
         props.moveDownWidget(widget);
     },

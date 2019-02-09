@@ -142,11 +142,32 @@ class CourseEditor extends React.Component {
             })
   }
 
+  addWidget = () => {
+    var top =  this.state.topic
+    var widge = top.widgets
+    var newWidget = {
+    type: 'HEADING',
+    Name: 'New Widget',
+    size: 1,
+    id: (new Date()).getTime()}
+    widge.push(newWidget)
+    top.widgets = widge
+    this.setState
+                ({
+                topic: top,
+                widgets: widge
+                })
+  }
+
   moveDownWidget = widget => {
     let index = this.state.widgets.indexOf(widget);
+    if(index === this.state.widgets.length -1){
+        alert("Can't move the last widget down!")
+        return
+    }
         var top =  this.state.topic
         var widge = top.widgets
-        widge.move(index - 1, index);
+        widge.move(index, index + 1);
         widge = widge.splice(0);
         top.widgets = widge
         this.setState
@@ -493,7 +514,8 @@ class CourseEditor extends React.Component {
               widgets={this.state.widgets}
               deleteWidget={this.deleteWidget}
               moveUpWidget={this.moveUpWidget}
-              moveDownWidget={this.moveDownWidget}/>
+              moveDownWidget={this.moveDownWidget}
+              addWidget={this.addWidget}/>
           </Provider>
         </div>
       </div>

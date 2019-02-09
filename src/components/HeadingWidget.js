@@ -67,7 +67,7 @@ const HeadingWidget = ({widget, updateWidget}) =>
                                         <input
                                                                 value={widget.Name}
                                                                 onChange={event => {
-                                                                    widget.text = event.target.value
+                                                                    widget.Name = event.target.value
                                                                     updateWidget(widget)
                                                                 }}
                                                         className="widget-field"
