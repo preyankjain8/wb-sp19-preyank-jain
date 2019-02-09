@@ -53,7 +53,8 @@ const ImageWidget = ({widget, updateWidget}) =>
             		<h3>Preview</h3>
             		{
             		widget.text === undefined && <h5>No preview available</h5> ||
-            		widget.text !== undefined && <img alt="example" src={widget.text}></img>
+            		!widget.text.includes("com") && <h5>No preview available</h5> ||
+            		widget.text.includes("com") && <img alt="example" src={widget.text}></img>
                     }
                     </div>
 
