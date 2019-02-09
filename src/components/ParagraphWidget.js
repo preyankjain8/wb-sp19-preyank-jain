@@ -49,7 +49,7 @@ const ParagraphWidget = ({widget, updateWidget}) =>
                 	<br />
                 	<br />
                 	<div style={{display: widget.editing? 'block': 'none'}}>
-            		<h2>Preview</h2>
+            		<h3>Preview</h3>
             		<p>{widget.text}</p>
             		</div>
 

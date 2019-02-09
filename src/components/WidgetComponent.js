@@ -8,7 +8,7 @@ import LinkWidget from './LinkWidget'
     const WidgetComponent = ({widget, deleteWidget, updateWidget, moveUpWidget, moveDownWidget}) =>
     <div>
         <br />
-        <div className="float-left">
+        <div className="float-left" id="widget-heading">
             {
             widget.type=='HEADING' && <h1>Heading Widget</h1>||
             widget.type=='IMAGE' && <h1>Image Widget</h1>||

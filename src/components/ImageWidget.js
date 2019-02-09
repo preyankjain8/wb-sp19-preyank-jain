@@ -50,7 +50,7 @@ const ImageWidget = ({widget, updateWidget}) =>
                 	<br />
                 	<br />
                 	<div style={{display: widget.editing? 'block': 'none'}}>
-            		<h2>Preview</h2>
+            		<h3>Preview</h3>
             		{
             		widget.text === undefined && <h5>No preview available</h5> ||
             		widget.text !== undefined && <img alt="example" src={widget.text}></img>
