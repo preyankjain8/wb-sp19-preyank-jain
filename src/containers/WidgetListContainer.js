@@ -21,7 +21,8 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
     addWidget: () =>{
         //props.addWidget();
         dispatch({
-                    type: 'ADD_WIDGET'
+                    type: 'CREATE_WIDGET',
+                    topicId: props.topic.id
                 })
     },
     moveDownWidget: widget =>{

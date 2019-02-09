@@ -24,7 +24,7 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
             return {
                 widgets: state.widgets.filter(widget => widget.id !== action.widget.id)
             }
-        case 'ADD_WIDGET':
+        case 'CREATE_WIDGET':
             return {
                 widgets: [
                     ...state.widgets,
@@ -32,16 +32,20 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
                         type: 'HEADING',
                         Name: 'New Widget',
                         size: 1,
-                        id: (new Date()).getTime()
+                        topicId: action.topicId,
+                        id: (new Date()).getTime(),
+                        editing: true
                     }
-                ]
+                ],
+                preview: state.preview
             }
         case 'UPDATE_WIDGET':
             // replace the old widget with the new widget
             return {
                 widgets: state.widgets.map(widget =>
                 widget.id === action.widget.id ? action.widget : widget
-                )
+                ),
+                preview: state.preview
             }
         case 'LOAD_WIDGET':
                 if (action.reloadWidgets === true){
@@ -68,7 +72,8 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
         case 'MOVE_UP_WIDGET':
               var index = state.widgets.indexOf(action.widget);
               state.widgets.move(index, index - 1);
-              return {widgets: state.widgets.splice(0)};
+              return {widgets: state.widgets.splice(0),
+                      preview: state.preview};
         case 'TOGGLE_PREVIEW':
            var widgetsTemp= [];
            for (var i = 0; i < state.widgets.length; i++){
@@ -83,8 +88,24 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
 
         case 'FIND_ALL_WIDGETS_FOR_TOPIC':
             return{
-                widgets: state.widgets
+                widgets: state.widgets.filter(
+                    widget => widget.topicId === action.topicId
+                )
             }
+        case 'FIND_WIDGET':
+            return{
+                widgets: state.widgets.filter(
+                    widget => widget.id === action.widgetId
+                )
+            }
+        case 'FIND_ALL_WIDGETS_FOR_TOPIC':
+            return{
+                widgets: state.widgets.filter(
+                widget => widget.id === action.widgetId)}
+
+        case 'FIND_ALL_WIDGETS':
+            return state.widgets
+
         default:
             return state;
     }
