@@ -96,6 +96,7 @@ class CourseEditor extends React.Component {
         this.setState({
                   module: module,
                   lesson: {},
+                  widgets: [],
                   reloadWidgets: true
                 })
     }
@@ -125,15 +126,36 @@ class CourseEditor extends React.Component {
                     module: module,
                     lesson: module.lessons[0],
                     topic: module.lessons[0].topics[0],
-                    widgets: module.lessons[0].topics[0].widgets
+                    widgets: module.lessons[0].topics[0].widgets,
+                    reloadWidgets: true
                     })
     }
   }
 
-  selectLesson = lesson =>
-      this.setState({
-        lesson: lesson
-      })
+  selectLesson = lesson =>{
+        if(lesson.topics === undefined || lesson.topics.length === 0){
+            this.setState({
+                    lesson: lesson,
+                    reloadWidgets: true
+                  })
+        }
+        else if(lesson.topics.length > 0 && lesson.topics[0].widgets === undefined){
+            this.setState({
+                lesson : lesson,
+                topic : lesson.topics[0],
+                widgets: [],
+                reloadWidgets: true
+            })
+        }
+        else{
+            this.setState({
+                lesson : lesson,
+                topic : lesson.topics[0],
+                widgets: lesson.topics[0].widgets,
+                reloadWidgets: true
+            })
+        }
+  }
 
   selectTopic = topic =>{
         if(topic.widgets === undefined){
@@ -143,6 +165,14 @@ class CourseEditor extends React.Component {
                 widgets: [],
                 reloadWidgets: true
               })
+        }
+        else{
+            this.setState
+            ({
+            topic: topic,
+            widgets: topic.widgets,
+            reloadWidgets: true
+            })
         }
   }
 
