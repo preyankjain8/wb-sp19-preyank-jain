@@ -33,12 +33,10 @@ const WidgetList = ({widgets, preview, addWidget, deleteWidget, updateWidget, lo
                                 moveUpWidget={moveUpWidget}/>
                         )
                     }
-                    <button
-                        onClick={addWidget}
-                        className="btn btn-success">
-                        Add New Widget
-                    </button>
+                    <div className="float-right">
+                        <i id="add-course-btn" onClick={addWidget} className="fa fa-3x fa-plus-circle float-right"></i>
                     </div>
+            </div>
 
         </div>
     </div>

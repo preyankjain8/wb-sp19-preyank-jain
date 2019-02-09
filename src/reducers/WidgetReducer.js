@@ -2,7 +2,8 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
     switch(action.type) {
         case 'DELETE_WIDGET':
             return {
-                widgets: state.widgets.filter(widget => widget.id !== action.widget.id)
+                widgets: state.widgets.filter(widget => widget.id !== action.widget.id),
+                preview: state.preview
             }
         case 'CREATE_WIDGET':
             return {
