@@ -533,6 +533,16 @@ class CourseEditor extends React.Component {
                   })
   }
 
+  saveWidgets = (widgets) => {
+        var top = this.state.topic;
+        top.widgets = widgets
+        this.setState({
+            topic: top,
+            widgets: widgets,
+            reloadWidgets: true
+            })
+  }
+
   render() {
     return (
       <div>
@@ -587,7 +597,7 @@ class CourseEditor extends React.Component {
               addWidget={this.addWidget}
               reloadWidgets={this.state.reloadWidgets}
               toggleReload={this.toggleReload}
-              saveWidgets={this.}/>
+              saveWidgets={this.saveWidgets}/>
           </Provider>
         </div>
       </div>
