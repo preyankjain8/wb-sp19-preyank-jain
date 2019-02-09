@@ -38,24 +38,117 @@ class CourseService {
        if(widget === undefined || widget.title === '') {
          widget = {
            id: (new Date()).getTime(),
-           Name: 'New Widget'
+           Name: 'New Widget',
+           topicId: topicId
          }
        }
 
-       for(var c in  this.courses){
-        for (var mod in c.modules){
-            for (var les in mod.lessons){
-                for(var topic in les.topics){
-                    if(topic.id === topicId)
-                    {
-                        topic.push(widget)
+       for (var i = 0; i < this.courses.length; i++){
+            var course = this.courses[i];
+            for (var j = 0; j < course.modules.length; j++){
+                var module = course.modules[j];
+                for (var k = 0; k < module.lessons.length; k++){
+                    var lesson = module.lessons[k];
+                    for (var l = 0; l < lesson.topics.length; l++){
+                        if (lesson.topics[i].id === topicId){
+                            lesson.topics[i].push(widget)
+                        }
                     }
                 }
-          }
-        }
+            }
        }
-       return this.courses
+
+    return this.courses
      }
+
+     findWidgets = topicId => {
+        var widgetsAr = [];
+        for (var i = 0; i < this.courses.length; i++){
+            var course = this.courses[i];
+            for (var j = 0; j < course.modules.length; j++){
+                var module = course.modules[j];
+                for (var k = 0; k < module.lessons.length; k++){
+                    var lesson = module.lessons[k];
+                    for (var l = 0; l < lesson.topics.length; l++){
+                        var topic = lesson.topic[l];
+                        for (var m = 0; m < topic.widgets.length; m++){
+                            widgetsAr.push(topic.widgets[m]);
+                        }
+                    }
+                }
+            }
+        }
+        return widgetsAr
+     }
+
+     findWidget = widgetId => {
+        var widgetsAr = [];
+        for (var i = 0; i < this.courses.length; i++){
+            var course = this.courses[i];
+            for (var j = 0; j < course.modules.length; j++){
+                var module = course.modules[j];
+                for (var k = 0; k < module.lessons.length; k++){
+                    var lesson = module.lessons[k];
+                        for (var l = 0; l < lesson.topics.length; l++){
+                        var topic = lesson.topic[l];
+                            for (var m = 0; m < topic.widgets.length; m++){
+                                if(topic.widgets[m].id === widgetId){
+                                        return topic.widgets[m]
+                                    }
+                            }
+                        }
+                }
+            }
+        }
+        return null;
+     }
+
+     findWidget = (widgetId, widget) => {
+        var widgetsAr = [];
+        for (var i = 0; i < this.courses.length; i++){
+            var course = this.courses[i];
+            for (var j = 0; j < course.modules.length; j++){
+                var module = course.modules[j];
+                for (var k = 0; k < module.lessons.length; k++){
+                    var lesson = module.lessons[k];
+                    for (var l = 0; l < lesson.topics.length; l++){
+                        var topic = lesson.topic[l];
+                        for (var m = 0; m < topic.widgets.length; m++){
+                            if(topic.widgets[m].id === widgetId){
+                                topic.widgets[m] = widget
+                                return topic.widgets[m]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+     }
+
+     deleteWidget = widgetId => {
+            var widgetsAr = [];
+            for (var i = 0; i < this.courses.length; i++){
+                var course = this.courses[i];
+                for (var j = 0; j < course.modules.length; j++){
+                    var module = course.modules[j];
+                    for (var k = 0; k < module.lessons.length; k++){
+                        var lesson = module.lessons[k];
+                        for (var l = 0; l < lesson.topics.length; l++){
+                            var topic = lesson.topic[l];
+                            for (var m = 0; m < topic.widgets.length; m++){
+                                if(topic.widgets[m].id === widgetId){
+                                    topic.widgets.remove(topic.widgets[m])
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+          return this.courses
+        }
+
+
+
 
 }
 export default CourseService;
