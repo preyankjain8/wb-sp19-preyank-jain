@@ -18,7 +18,7 @@ const widgets =
 
 
 
-const widgetReducer = (state = {widgets:[]}, action) => {
+const widgetReducer = (state = {widgets:[], preview: true}, action) => {
     switch(action.type) {
         case 'DELETE_WIDGET':
             return {
@@ -30,8 +30,9 @@ const widgetReducer = (state = {widgets:[]}, action) => {
                     ...state.widgets,
                     {
                         type: 'HEADING',
-                        text: 'New Widget',
-                        size: 1
+                        Name: 'New Widget',
+                        size: 1,
+                        id: (new Date()).getTime()
                     }
                 ]
             }
@@ -39,18 +40,32 @@ const widgetReducer = (state = {widgets:[]}, action) => {
             // replace the old widget with the new widget
             return {
                 widgets: state.widgets.map(widget =>
-                    widget.id === action.widget.id ? action.widget : widget
+                widget.id === action.widget.id ? action.widget : widget
                 )
             }
         case 'LOAD_WIDGET':
+                if (action.reloadWidgets === true){
                     var newState = {widgets: action.widgets}
                     return Object.assign({}, newState)
+                }
+                else{
+                    return state
+                }
 
+        case 'MOVE_DOWN_WIDGET':
+            var index = state.widgets.indexOf(action.widget);
+            if(index === widgets.length - 1){
+                alert("Can't move the last widget down!")
+                return
+            }
+            state.widgets.move(index, index + 1);
+            return {widgets: state.widgets.splice(0),
+            reload: false};
 
-        case 'MOVE_UP':
-             let index = state.widgets.indexOf(action.widget);
+        case 'MOVE_UP_WIDGET':
+              var index = state.widgets.indexOf(action.widget);
               state.widgets.move(index, index - 1);
-              return state.widgets.splice(0);
+              return {widgets: state.widgets.splice(0)};
         case 'FIND_ALL_WIDGETS_FOR_TOPIC':
             return{
                 widgets: state.widgets

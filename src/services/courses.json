@@ -20,12 +20,14 @@
                     "Name": "Widget 1",
                     "type": "HEADING",
                     "text": "This is a heading",
-                    "size": 2
+                    "size": 2,
+                    "editing": true
                   },
                   {
                     "id": 234,
                     "Name": "Widget 2",
-                    "type": "IMAGE"
+                    "type": "IMAGE",
+                    "editing": true
                   }
                 ]
               },
@@ -38,12 +40,14 @@
                     "Name": "Widget 3",
                     "type": "HEADING",
                     "text": "This is a heading",
-                    "size": 2
+                    "size": 2,
+                    "editing": true
                   },
                   {
                     "id": 234,
                     "Name": "Widget 4",
-                    "type": "IMAGE"
+                    "type": "IMAGE",
+                    "editing": true
                   }
                 ]
               }
@@ -62,12 +66,14 @@
                     "Name": "Widget 5",
                     "type": "HEADING",
                     "text": "This is a heading",
-                    "size": 2
+                    "size": 2,
+                    "editing": true
                   },
                   {
                     "id": 234,
                     "Name": "Widget 6",
-                    "type": "IMAGE"
+                    "type": "IMAGE",
+                    "editing": true
                   }
                 ]
               },
@@ -80,12 +86,14 @@
                     "Name": "Widget 7",
                     "type": "HEADING",
                     "text": "This is a heading",
-                    "size": 2
+                    "size": 2,
+                    "editing": true
                   },
                   {
                     "id": 234,
                     "Name": "Widget 8",
-                    "type": "IMAGE"
+                    "type": "IMAGE",
+                    "editing": true
                   }
                 ]
               }

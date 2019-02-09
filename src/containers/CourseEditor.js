@@ -33,7 +33,8 @@ class CourseEditor extends React.Component {
               editing: false,
               editModule: undefined,
               editLesson: undefined,
-              editTopic: undefined
+              editTopic: undefined,
+              reloadWidgets: true
             }
     }
     else if(course.modules[0].lessons === undefined ||
@@ -50,7 +51,8 @@ class CourseEditor extends React.Component {
                   editing: false,
                   editModule: undefined,
                   editLesson: undefined,
-                  editTopic: undefined
+                  editTopic: undefined,
+                  reloadWidgets: true
                 }
         }
     else if(course.modules[0].lessons[0].topics === undefined ||
@@ -67,7 +69,8 @@ class CourseEditor extends React.Component {
                        editing: false,
                        editModule: undefined,
                        editLesson: undefined,
-                       editTopic: undefined
+                       editTopic: undefined,
+                       reloadWidgets: true
                      }
              }
     else{
@@ -83,7 +86,8 @@ class CourseEditor extends React.Component {
                           editing: false,
                           editModule: undefined,
                           editLesson: undefined,
-                          editTopic: undefined
+                          editTopic: undefined,
+                          reloadWidgets: true
                           }
     }
   }
@@ -111,7 +115,8 @@ class CourseEditor extends React.Component {
   this.setState
   ({
     topic: topic,
-    widgets: topic.widgets
+    widgets: topic.widgets,
+    reloadWidgets: true
   })
 
   deleteWidget = widgetId =>{
@@ -464,6 +469,12 @@ class CourseEditor extends React.Component {
         document.getElementById("add-course-btn").style.display="block";
   }
 
+  toggleReload = () =>
+  {
+    this.setState({
+                      reloadWidgets: !this.state.reloadWidgets
+                  })
+  }
 
   render() {
     return (
@@ -515,7 +526,9 @@ class CourseEditor extends React.Component {
               deleteWidget={this.deleteWidget}
               moveUpWidget={this.moveUpWidget}
               moveDownWidget={this.moveDownWidget}
-              addWidget={this.addWidget}/>
+              addWidget={this.addWidget}
+              reloadWidgets={this.state.reloadWidgets}
+              toggleReload={this.toggleReload}/>
           </Provider>
         </div>
       </div>
