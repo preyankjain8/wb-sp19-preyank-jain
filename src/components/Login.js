@@ -27,11 +27,13 @@ class Login extends Component {
 
     login = () => {
         this.userService.login(this.state.userName,
-            this.state.password).then(this.allowLogin)
+            this.state.password)
+            .then(this.allowLogin)
     }
 
     allowLogin = (user) =>{
-        window.location.href = '/courses';
+        if(user !== undefined)
+            window.location.href = '/courses';
     }
 
     render() {
@@ -79,9 +81,11 @@ class Login extends Component {
                        href="#">
                         Forgot Password?
                     </a>
-                    <a className="float-right">
+                    <Link
+                        to="/register"
+                        className="float-right">
                         Sign Up
-                    </a>
+                    </Link>
                 </div>
             </div>
         )

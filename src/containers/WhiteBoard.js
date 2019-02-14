@@ -7,7 +7,7 @@ import CourseService from "../services/CourseService";
 import Login from "../components/Login"
 import Register from "../components/Register"
 
-class CourseManager extends Component {
+class WhiteBoard extends Component {
     constructor(props){
         super(props)
         this.courseService = new CourseService();
@@ -68,7 +68,7 @@ class CourseManager extends Component {
                         <Route path='/courses'
                                component={() => <CourseTable
                                    deleteCourse={this.deleteCourse}
-                                    courseService={this.courseService}/>}/>
+                                   courseService={this.courseService}/>}/>
                         <Route path='/grid'
                                component={() => <CourseGrid
                                    courses={this.state.courses}
@@ -89,4 +89,4 @@ class CourseManager extends Component {
     }
 }
 
-export default CourseManager;
+export default WhiteBoard;
