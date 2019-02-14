@@ -4,16 +4,18 @@ import CourseGrid from "./CourseGrid";
 import CourseTable from "./CourseTable";
 import CourseEditor from "./CourseEditor";
 import CourseService from "../services/CourseService";
+import Login from "../components/Login"
 
 class CourseManager extends Component {
     constructor(props){
         super(props)
         this.courseService = new CourseService();
         this.state = {
-            courseInput: '',
-            courses: this.courseService.findAllCourses()
+            courseInput: ''
+            //courses: this.courseService.findAllCourses()
         }
     }
+
 
     onCourseNameChange = (event) =>
     {
@@ -62,10 +64,10 @@ class CourseManager extends Component {
                         </div>
                     </div>
                     <div>
-                        <Route path='/' exact
+                        <Route path='/courses'
                                component={() => <CourseTable
-                                   courses={this.state.courses}
-                                   deleteCourse={this.deleteCourse}/>}/>
+                                   deleteCourse={this.deleteCourse}
+                                    courseService={this.courseService}/>}/>
                         <Route path='/grid'
                                component={() => <CourseGrid
                                    courses={this.state.courses}
@@ -73,6 +75,9 @@ class CourseManager extends Component {
                         <Route path="/course/:id"
                                exact
                                component={CourseEditor}/>
+                        <Route path="/"
+                               exact
+                               component={Login}/>
                     </div>
                 </div>
             </Router>

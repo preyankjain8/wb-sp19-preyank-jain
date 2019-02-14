@@ -2,7 +2,7 @@ import courses from './courses.json';
 
 class CourseService {
     constructor() {
-        this.url = 'http://localhost:8080/api/courses';
+        this.url = 'http://127.0.0.1:8080/api/courses';
         this.courses = courses;
     }
     addCourse = course => {
@@ -21,7 +21,10 @@ class CourseService {
             course => course.id === courseId
         )
     findAllCourses = () =>{
-        return fetch(this.url)
+        return fetch(this.url,{
+            method: 'GET',
+            credentials: 'include'
+        })
             .then(function(response) {
                 return response.json();
             });
