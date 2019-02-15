@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 
 class LessonTabs extends React.Component{
 
@@ -31,7 +32,7 @@ class LessonTabs extends React.Component{
                             <div className="nav-link">
                                 <a
                                     onClick={ () => this.props.selectLesson(lesson) }
-                                    href="#">{lesson.title}
+                                    >{lesson.title}
                                 </a>
                                 <i onClick={ () => this.props.deleteLesson(lesson) } class="fa fa-times" aria-hidden="true"></i>
                                 <i onClick={ () => this.props.editLessonName(lesson) } className="fa fa-pencil"></i>

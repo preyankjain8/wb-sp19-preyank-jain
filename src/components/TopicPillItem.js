@@ -6,7 +6,7 @@ const TopicPillItem = ({topic, deleteTopic, selectedTopic, selectTopic, editTopi
              <div className="nav-link">
               <a
                  onClick={() => selectTopic(topic)}
-                 href="#">{topic.title}
+                 >{topic.title}
               </a>
               <i onClick={ () => deleteTopic(topic) } class="fa fa-times" aria-hidden="true"></i>
               <i onClick={ () => editTopicName(topic) } className="fa fa-pencil"></i>

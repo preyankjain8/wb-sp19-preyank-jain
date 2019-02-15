@@ -129,88 +129,25 @@ class CourseEditor1 extends React.Component {
     }
 
     selectModule = module =>{
-        if (module.lessons === undefined || module.lessons.length === 0){
-            this.setState({
-                module: module,
-                lesson: {},
-                widgets: [],
-                reloadWidgets: true
-            })
-        }
-        else if (module.lessons.length > 0 && module.lessons[0].topics === undefined)
-        {
-            this.setState({
-                module: module,
-                lesson: module.lessons[0],
-                topic: {},
-                widgets: [],
-                reloadWidgets: true
-
-            })
-        }
-        else if (module.lessons[0].topics.length > 0 && module.lessons[0].topics[0].widgets === undefined)
-        {
-            this.setState({
-                module: module,
-                lesson: module.lessons[0],
-                topic: module.lessons[0].topics[0],
-                widgets: [],
-                reloadWidgets: true
-            })
-        }
-        else{
-            this.setState({
-                module: module,
-                lesson: module.lessons[0],
-                topic: module.lessons[0].topics[0],
-                widgets: module.lessons[0].topics[0].widgets,
-                reloadWidgets: true
-            })
-        }
+        this.setState({
+            module:module
+        })
+        this.lesonService.findAllLessons(module.id)
+            .then(this.assignLessons)
     }
 
     selectLesson = lesson =>{
-        if(lesson.topics === undefined || lesson.topics.length === 0){
-            this.setState({
-                lesson: lesson,
-                reloadWidgets: true
-            })
-        }
-        else if(lesson.topics.length > 0 && lesson.topics[0].widgets === undefined){
-            this.setState({
-                lesson : lesson,
-                topic : lesson.topics[0],
-                widgets: [],
-                reloadWidgets: true
-            })
-        }
-        else{
-            this.setState({
-                lesson : lesson,
-                topic : lesson.topics[0],
-                widgets: lesson.topics[0].widgets,
-                reloadWidgets: true
-            })
-        }
+        this.setState({
+            lesson:lesson
+        })
+        this.topicService.findAllTopics(lesson.id)
+            .then(this.assignTopics)
     }
 
     selectTopic = topic =>{
-        if(topic.widgets === undefined){
-            this.setState
-            ({
-                topic: topic,
-                widgets: [],
-                reloadWidgets: true
-            })
-        }
-        else{
-            this.setState
-            ({
-                topic: topic,
-                widgets: topic.widgets,
-                reloadWidgets: true
-            })
-        }
+        this.setState({
+            topic:topic
+        })
     }
 
     deleteWidget = widgetId =>{
@@ -282,71 +219,44 @@ class CourseEditor1 extends React.Component {
             this.editLessonFunc();
         }
         else{
-            if(this.state.module.id == undefined){
-                alert("Please select a module first!")
-            }
-            else{
-                var lessonTitle = 'New Lesson'
-                var less = this.state.module.lessons;
-                if (this.state.lessonInput !== ''){
-                    lessonTitle = this.state.lessonInput
-                }
-                less.push(
-                    {title: lessonTitle,
-                        id: (new Date()).getTime()}
-                )
-                var mod = this.state.module
-                mod.lessons = less
-                this.setState(
-                    {
-                        module: mod,
-                        lessonInput: ''
-                    }
-                )
-            }
+            this.lesonService.addLesson({
+                title: this.state.lessonInput,
+                id: (new Date()).getMilliseconds()
+            }, this.state.module.id).then(this.lessonAdded)
         }
+    }
 
+    lessonAdded = (lesson) => {
+        var lessons = this.state.lessons;
+        lessons.push(lesson);
+        this.setState({
+            lessons: lessons
+        })
     }
 
     deleteLesson = (deletelesson) => {
-        var less = this.state.module.lessons.filter(
-            lesson => lesson.id !== deletelesson.id
-        )
-        var mod = this.state.module
-        mod.lessons = less
 
-        if(this.state.lesson.id === deletelesson.id){
-            this.setState(
-                {
-                    module: mod,
-                    lesson: {},
-                    topic: {}
-                }
-            )
-        }
-        else{
-            this.setState(
-                {
-                    module: mod,
-                    lesson: {}
-                }
-            )
-        }
+        this.lesonService.deleteLesson(deletelesson.id).then(() => this.lessonDeleted(deletelesson.id))
+    }
+
+    lessonDeleted = (lessonId) => {
+        var lessons = this.state.lessons;
+        lessons = lessons.filter(l => l.id !== lessonId);
+        this.setState({
+            lessons: lessons
+        })
     }
 
     deleteTopic = (deletetopic) => {
-        var top = this.state.module.lessons.find(
-            lesson => lesson === this.state.lesson
-        ).topics.filter(
-            topic => topic !== deletetopic
-        )
-        var mod = this.state.module
-        mod.lessons.find(l => l === this.state.lesson).topics = top
-        this.setState(
-            {
-                module: mod
-            }
-        )
+        this.topicService.deleteTopic(deletetopic.id).then(() => this.topicDeleted(deletetopic.id))
+    }
+
+    topicDeleted = (topicId) => {
+        var topics = this.state.topics;
+        topics = topics.filter(t => t.id !== topicId);
+        this.setState({
+            topics: topics
+        })
     }
 
 
@@ -370,29 +280,19 @@ class CourseEditor1 extends React.Component {
             this.editTopicFunc();
         }
         else{
-            if(this.state.lesson.title === undefined){
-                alert("Please select a lesson first!")
-            }
-            else{
-                var top = this.state.lesson.topics;
-                var topicTitle = 'New Topic'
-                if (this.state.topicInput !== ''){
-                    topicTitle = this.state.topicInput;
-                }
-                top.push(
-                    {title: topicTitle,
-                        id: (new Date()).getTime()}
-                )
-                var less = this.state.lesson
-                less.topics = top
-                this.setState(
-                    {
-                        lesson: less,
-                        topicInput: ''
-                    }
-                )
-            }
+            this.topicService.addTopic({
+                title: this.state.topicInput,
+                id: (new Date()).getMilliseconds()
+            }, this.state.lesson.id).then(this.topicAdded)
         }
+    }
+
+    topicAdded = (topic) =>{
+        var topics = this.state.topics;
+        topics.push(topic);
+        this.setState({
+            topics: topics
+        })
     }
 
     editModuleFunc(){
@@ -416,26 +316,22 @@ class CourseEditor1 extends React.Component {
             this.editModuleFunc();
         }
         else{
-            var modules = this.state.course.modules;
-            var modTitle = 'New Module';
-            if(this.state.moduleInput !== ''){
-                modTitle = this.state.moduleInput
-            }
-            modules.push(
-                {title: modTitle,
-                    id: (new Date()).getTime()
-                }
-            )
-            var cor = this.state.course
-            cor.modules = modules
-            this.setState(
-                {
-                    course: cor,
-                    moduleInput:''
-                }
-            )
+            this.moduleService.addModule({
+                title: this.state.moduleInput,
+                id: (new Date()).getMilliseconds()
+            }, this.courseId).then(this.moduleAdded)
         }
     }
+
+    moduleAdded = (module) => {
+        var modules = this.state.modules;
+        modules.push(module);
+        this.setState({
+            modules: modules
+        })
+    }
+
+
     titleChanged = (event) => {
         this.setState(
             {
@@ -444,31 +340,15 @@ class CourseEditor1 extends React.Component {
     }
 
     deleteModule = (moduleId) => {
-        var mod = this.state.course.modules;
-        mod = mod.filter(
-            module => module.id !== moduleId
-        )
-        var cor = this.state.course
-        cor.modules = mod
-        if(this.state.module.id === moduleId){
-            console.log("inside")
-            this.setState(
-                {
-                    course: cor,
-                    module: {},
-                    lesson: {},
-                    topic: {}
-                }
-            )
-        }
-        else{
-            this.setState(
-                {
-                    course: cor,
-                }
-            )
-        }
+        this.moduleService.deleteModule(moduleId).then(()=> this.moduleDeleted(moduleId))
+    }
 
+    moduleDeleted = (moduleId) => {
+        var modules = this.state.modules;
+        modules = modules.filter(m => m.id != moduleId)
+        this.setState({
+            modules: modules
+        })
     }
 
     editModuleName= (module) => {

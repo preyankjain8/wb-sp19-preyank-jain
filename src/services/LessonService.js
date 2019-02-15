@@ -15,22 +15,34 @@ class LessonService {
         });
     }
 
-    register = (userName, password, firstName, lastName) => {
-        return fetch(this.url+"/register", {
+    addLesson = (lesson, moduleId) => {
+        if(lesson === undefined || lesson.title === '') {
+            lesson = {
+                id: (new Date()).getMilliseconds(),
+                title: 'New lesson'
+            }
+        }
+        return fetch(this.url+"/module/"+moduleId+"/lesson", {
             method: 'POST',
             headers: {
-                'content-type': 'application/json',
+                'content-type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({
-                "userName":userName,
-                "password":password,
-                "firstName": firstName,
-                "lastName": lastName,
-                "role": "FACULTY"
+                "id": lesson.id,
+                "title": lesson.title,
             })
         }).then(function(response) {
             return response.json();
+        }).catch(error=>{
+            alert("Could not create lesson!")
+        });
+    }
+
+    deleteLesson = lessonId => {
+        return fetch(this.url+"/lesson/"+lessonId, {
+            method: 'DELETE',
+            credentials: 'include',
         }).catch(error=>{
             alert("incorrect username or password!")
         });

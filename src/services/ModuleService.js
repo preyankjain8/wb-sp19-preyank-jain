@@ -15,22 +15,35 @@ class ModuleService {
         });
     }
 
-    register = (userName, password, firstName, lastName) => {
-        return fetch(this.url+"/register", {
+    addModule = (module, courseId) => {
+        if(module === undefined || module.title === '') {
+            module = {
+                id: (new Date()).getMilliseconds(),
+                title: 'New Module'
+            }
+        }
+
+        return fetch(this.url+"/courses/"+courseId+"/modules", {
             method: 'POST',
             headers: {
-                'content-type': 'application/json',
+                'content-type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({
-                "userName":userName,
-                "password":password,
-                "firstName": firstName,
-                "lastName": lastName,
-                "role": "FACULTY"
+                "id": module.id,
+                "title": module.title,
             })
         }).then(function(response) {
             return response.json();
+        }).catch(error=>{
+            alert("Could not create course!")
+        });
+    }
+
+    deleteModule = moduleId => {
+        return fetch(this.url+"/modules/"+moduleId, {
+            method: 'DELETE',
+            credentials: 'include',
         }).catch(error=>{
             alert("incorrect username or password!")
         });

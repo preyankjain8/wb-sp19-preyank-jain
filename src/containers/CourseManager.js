@@ -90,7 +90,6 @@ class CourseManager extends Component {
                                courses={this.state.courses}
                                deleteCourse={this.deleteCourse}/>}/>
                     <Route path="/course/:id"
-                           exact
                            component={CourseEditor1}/>
                     <Route path="/"
                            exact
