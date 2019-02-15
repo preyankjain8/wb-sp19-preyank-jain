@@ -15,7 +15,8 @@ class CourseManager extends Component {
         this.courses = this.courseService.findAllCourses().then(this.findAllCourses)
         this.state = {
             courseInput: '',
-            courses: []
+            courses: [],
+            editCourse: undefined
         }
     }
 
@@ -54,18 +55,43 @@ class CourseManager extends Component {
         })
     }
 
-    createCourse = () =>{
-        this.courseService.addCourse({
-            id:(new Date()).getMilliseconds(),
+    editCourseFunc = () => {
+        this.courseService.updateCourse({
+            id: this.state.editCourse.id,
             title: this.state.courseInput
-        }).then(this.courseAdded)
+        }, this.state.editCourse.id).then(this.courseEdited)
+    }
+
+    courseEdited = (course) => {
+        var courses = this.state.courses;
+        courses.find(c => c.id === course.id).title = course.title;
+        this.setState({
+            courses: courses,
+            courseInput: '',
+            editCourse: undefined
+        })
+        document.getElementById("new-course-title").value='';
+    }
+
+
+    createCourse = () =>{
+        if(this.state.editCourse !== undefined){
+            this.editCourseFunc()
+        }
+        else{
+            this.courseService.addCourse({
+                id:(new Date()).getMilliseconds(),
+                title: this.state.courseInput
+            }).then(this.courseAdded)
+        }
     }
 
     courseAdded = (course) => {
         var courses = this.state.courses
         courses.push(course)
         this.setState({
-            courses: courses
+            courses: courses,
+            courseInput: ''
         })
     }
 
@@ -77,6 +103,14 @@ class CourseManager extends Component {
         })
     }
 
+    editCourseName = (course) => {
+        this.setState({
+            editCourse: course,
+            courseInput: course.title
+        })
+        document.getElementById("new-course-title").value=course.title;
+    }
+
     render() {
         return (
             <Router>
@@ -84,12 +118,14 @@ class CourseManager extends Component {
                     <Route path='/courses'
                            component={() => <CourseTable
                                courses={this.state.courses}
+                               editCourseName={this.editCourseName}
                                deleteCourse={this.deleteCourse}/>}/>
                     <Route path='/grid'
                            component={() => <CourseGrid
                                courses={this.state.courses}
                                deleteCourse={this.deleteCourse}/>}/>
                     <Route path="/course/:id"
+                           exact
                            component={CourseEditor1}/>
                     <Route path="/"
                            exact

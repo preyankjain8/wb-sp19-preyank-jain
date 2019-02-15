@@ -30,10 +30,15 @@ class CourseService {
         });
     }
 
-    findCourseById = courseId =>
-        this.courses = this.courses.find(
-            course => course.id === courseId
-        )
+    findCourseById = courseId =>{
+        return fetch(this.url+"/"+courseId,{
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(function(response) {
+                return response.json();
+            });
+    }
     findAllCourses = () =>{
         return fetch(this.url,{
             method: 'GET',
@@ -50,6 +55,24 @@ class CourseService {
             credentials: 'include',
         }).catch(error=>{
             alert("incorrect username or password!")
+        });
+    }
+
+    updateCourse = (course,courseId) => {
+        return fetch(this.url+"/"+courseId, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                "id": course.id,
+                "title": course.title,
+            })
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            alert("Could not update course!")
         });
     }
 

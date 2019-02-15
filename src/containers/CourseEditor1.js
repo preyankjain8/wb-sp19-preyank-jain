@@ -24,10 +24,9 @@ class CourseEditor1 extends React.Component {
         this.lesonService = new LessonService()
         this.topicService = new TopicService()
         this.courseId = parseInt(props.match.params.id)
-        const course = this.courseService.findCourseById(this.courseId)
         //var modules = this.moduleService.findAllModules(this.courseId).then(this.assignModules)
         this.state = {
-            course: course,
+            course: {id:'',title:''},
             modules: [],
             module:{},
             lessons: [],
@@ -227,10 +226,15 @@ class CourseEditor1 extends React.Component {
     }
 
     lessonAdded = (lesson) => {
+        if(lesson.error !== undefined){
+            alert("Please select a module to add lesson to!")
+            return
+        }
         var lessons = this.state.lessons;
         lessons.push(lesson);
         this.setState({
-            lessons: lessons
+            lessons: lessons,
+            lessonInput: ''
         })
     }
 
@@ -288,23 +292,31 @@ class CourseEditor1 extends React.Component {
     }
 
     topicAdded = (topic) =>{
+        if(topic.error !== undefined){
+            alert("Please select a lesson to add topic to!")
+            return
+        }
         var topics = this.state.topics;
         topics.push(topic);
         this.setState({
-            topics: topics
+            topics: topics,
+            topicInput: ''
         })
     }
 
     editModuleFunc(){
-        var modules = this.state.course.modules;
-        modules.find(
-            m => m.id === this.state.editModule.id
-        )
-            .title = this.state.moduleInput;
-        var cor = this.state.course;
-        cor.modules = modules;
+        this.moduleService.updateModule({
+            id: this.state.editModule.id,
+            title: this.state.moduleInput
+        }, this.state.editModule.id).then(this.moduleUpdated)
+    }
+
+    moduleUpdated = (module) => {
+        var modules = this.state.modules;
+        modules.find(m => m.id === module.id)
+            .title = module.title;
         this.setState({
-            course: cor,
+            modules: modules,
             moduleInput: '',
             editModule: undefined
         })
@@ -324,10 +336,15 @@ class CourseEditor1 extends React.Component {
     }
 
     moduleAdded = (module) => {
+        if(module.error !== undefined){
+            alert("could not create module!")
+            return
+        }
         var modules = this.state.modules;
         modules.push(module);
         this.setState({
-            modules: modules
+            modules: modules,
+            moduleInput: ''
         })
     }
 
@@ -388,18 +405,22 @@ class CourseEditor1 extends React.Component {
     }
 
     editLessonFunc(){
-        var less = this.state.module.lessons;
-        less.find(
-            l => l.id === this.state.editLesson.id
-        )
-            .title = this.state.lessonInput;
-        var mod = this.state.module;
-        mod.lessons = less;
+        this.lesonService.updateLesson({
+            id: this.state.editLesson.id,
+            title: this.state.lessonInput
+        }, this.state.editLesson.id).then(this.lessonUpdated)
+    }
+
+    lessonUpdated = (lesson) => {
+        var lessons = this.state.lessons;
+        lessons.find(l => l.id === lesson.id)
+            .title = lesson.title;
         this.setState({
-            module: mod,
+            lessons: lessons,
             lessonInput: '',
             editLesson: undefined
         })
+        document.getElementById("lsn-cncl-btn").style.display="none";
     }
 
     editTopicName= (topic) => {
@@ -419,27 +440,42 @@ class CourseEditor1 extends React.Component {
     }
 
     editTopicFunc(){
-        var top = this.state.lesson.topics;
-        top.find(
-            t => t.id === this.state.editTopic.id
-        )
-            .title = this.state.topicInput;
-        var less = this.state.lesson;
-        less.topics = top;
+
+        this.topicService.updateTopic({
+            id: this.state.editTopic.id,
+            title: this.state.topicInput
+        }, this.state.editTopic.id).then(this.topicUpdated)
+    }
+
+    topicUpdated = (topic) => {
+        var topics = this.state.topics;
+        topics.find(t => t.id === topic.id)
+            .title = topic.title;
         this.setState({
-            lesson: less,
+            topics: topics,
             topicInput: '',
             editTopic: undefined
         })
+        document.getElementById("top-cncl-btn").style.display="none";
     }
 
     componentDidMount(){
+        document.getElementById("new-course-title").style.display="none";
+        document.getElementById("add-course-btn").style.display="none";
+        this.courseService.findCourseById(this.courseId).then(this.courseFound)
         this.moduleService.findAllModules(this.courseId).then(this.assignModules)
     }
 
+    courseFound = (course) => {
+        var c = course
+        this.setState({
+            course: c
+        })
+    }
+
     componentWillUnmount(){
-        /*document.getElementById("new-course-title").style.display="block";
-        document.getElementById("add-course-btn").style.display="block";*/
+        document.getElementById("new-course-title").style.display="block";
+        document.getElementById("add-course-btn").style.display="block";
     }
 
     toggleReload = () =>

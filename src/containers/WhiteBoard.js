@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from "../components/Login"
 import Register from "../components/Register"
 import CourseManager from "./CourseManager";
+import CourseEditor1 from "./CourseEditor1";
 
 class WhiteBoard extends Component {
     constructor(props){
@@ -36,6 +37,15 @@ class WhiteBoard extends Component {
                         <Route path='/courses'
                                exact
                                render={() => <CourseManager/>}/>
+                        <Route path="/"
+                               exact
+                               component={Login}/>
+                        <Route path="/register"
+                               exact
+                               component={Register}/>
+                        <Route path="/course/:id"
+                               exact
+                               component={CourseEditor1}/>
                         <Route path="/"
                                exact
                                component={Login}/>

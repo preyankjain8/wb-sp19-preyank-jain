@@ -48,5 +48,23 @@ class ModuleService {
             alert("incorrect username or password!")
         });
     }
+
+    updateModule = (module,moduleId) => {
+        return fetch(this.url+"/modules/"+moduleId, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                "id": module.id,
+                "title": module.title,
+            })
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            alert("Could not update course!")
+        });
+    }
 }
 export default ModuleService;

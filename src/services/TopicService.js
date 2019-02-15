@@ -48,5 +48,24 @@ class TopicService {
             alert("incorrect username or password!")
         });
     }
+
+
+    updateTopic = (topic,topicId) => {
+        return fetch(this.url+"/topic/"+topicId, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                "id": topic.id,
+                "title": topic.title,
+            })
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            alert("Could not update topic!")
+        });
+    }
 }
 export default TopicService;

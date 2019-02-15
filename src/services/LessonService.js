@@ -47,5 +47,23 @@ class LessonService {
             alert("incorrect username or password!")
         });
     }
+
+    updateLesson = (lesson,lessonId) => {
+        return fetch(this.url+"/lessons/"+lessonId, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                "id": lesson.id,
+                "title": lesson.title,
+            })
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            alert("Could not update lesson!")
+        });
+    }
 }
 export default LessonService;

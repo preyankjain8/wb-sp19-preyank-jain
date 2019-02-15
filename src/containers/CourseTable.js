@@ -41,7 +41,8 @@ class CourseTable extends Component {
 											courseId={course.id}
 											title={"  "+course.title}
 											deleteCourse={this.props.deleteCourse}
-											course={course}/>
+											course={course}
+											editCourseName={this.props.editCourseName}/>
 									)
 								}
 							)
