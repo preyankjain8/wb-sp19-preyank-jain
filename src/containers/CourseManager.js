@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import CourseGrid from "./CourseGrid";
 import CourseTable from "./CourseTable";
 import CourseEditor from "./CourseEditor";
+import CourseEditor1 from "./CourseEditor1";
 import CourseService from "../services/CourseService";
 import Login from "../components/Login"
 import Register from "../components/Register"
@@ -11,12 +12,34 @@ class CourseManager extends Component {
     constructor(props){
         super(props)
         this.courseService = new CourseService();
+        this.courses = this.courseService.findAllCourses().then(this.findAllCourses)
         this.state = {
-            courseInput: ''
-            //courses: this.courseService.findAllCourses()
+            courseInput: '',
+            courses: []
         }
     }
 
+    findAllCourses = (courses) => {
+        this.setState({
+            courses: courses
+        })
+        console.log(this.state.courses)
+    }
+
+    componentDidMount(){
+        document.getElementById("new-course-title").style.display="block";
+        document.getElementById("add-course-btn").style.display="block";
+        document.getElementById("new-course-title").value=this.state.courseInput;
+        document.getElementById("new-course-title").onchange=this.onCourseNameChange;
+        document.getElementById("add-course-btn").onclick= ()=>{
+            this.createCourse();
+        }
+    }
+
+    componentWillUnmount(){
+        document.getElementById("new-course-title").style.display="none";
+        document.getElementById("add-course-btn").style.display="none";
+    }
 
     onCourseNameChange = (event) =>
     {
@@ -25,64 +48,56 @@ class CourseManager extends Component {
         })
     }
 
-    deleteCourse = (course) =>
-        this.setState({
-            courses: this.courseService.deleteCourse(course)
+    deleteCourse = (course) =>{
+        this.courseService.deleteCourse(course).then(()=> {
+            this.courseDeleted(course)
         })
-    createCourse = () =>{
-        this.setState({
-            courses: this.courseService.addCourse(
-                {id: (new Date()).getTime(),
-                    title: this.state.courseInput
-                }
-            ),
-            courseInput:''
-        })
-
-        console.log(this.state.courses)
     }
+
+    createCourse = () =>{
+        this.courseService.addCourse({
+            id:(new Date()).getMilliseconds(),
+            title: this.state.courseInput
+        }).then(this.courseAdded)
+    }
+
+    courseAdded = (course) => {
+        var courses = this.state.courses
+        courses.push(course)
+        this.setState({
+            courses: courses
+        })
+    }
+
+    courseDeleted = (course) => {
+        var courses = this.state.courses
+        courses = courses.filter(c => c.id !== course.id)
+        this.setState({
+            courses: courses
+        })
+    }
+
     render() {
         return (
             <Router>
                 <div>
-                    <div className="row" id="top-row">
-                        <div className="col-1">
-                            <i className="fa fa-2x fa-bars" aria-hidden="true"></i>
-                        </div>
-                        <div className="col-2 d-none d-md-block"
-                             id="course-manager">
-                            WhiteBoard
-                        </div>
-                        <div className="col-7">
-                            <input
-                                onChange={this.onCourseNameChange} id="new-course-title"
-                                value={this.state.courseInput}
-                                placeholder="New Course Title" className="form-control">
-                            </input>
-                        </div>
-                        <div className="col-2">
-                            <i id="add-course-btn" onClick={ () =>  this.createCourse()} className="fa fa-2x fa-plus-circle"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <Route path='/courses'
-                               component={() => <CourseTable
-                                   deleteCourse={this.deleteCourse}
-                                    courseService={this.courseService}/>}/>
-                        <Route path='/grid'
-                               component={() => <CourseGrid
-                                   courses={this.state.courses}
-                                   deleteCourse={this.deleteCourse}/>}/>
-                        <Route path="/course/:id"
-                               exact
-                               component={CourseEditor}/>
-                        <Route path="/"
-                               exact
-                               component={Login}/>
-                        <Route path="/register"
-                               exact
-                               component={Register}/>
-                    </div>
+                    <Route path='/courses'
+                           component={() => <CourseTable
+                               courses={this.state.courses}
+                               deleteCourse={this.deleteCourse}/>}/>
+                    <Route path='/grid'
+                           component={() => <CourseGrid
+                               courses={this.state.courses}
+                               deleteCourse={this.deleteCourse}/>}/>
+                    <Route path="/course/:id"
+                           exact
+                           component={CourseEditor1}/>
+                    <Route path="/"
+                           exact
+                           component={Login}/>
+                    <Route path="/register"
+                           exact
+                           component={Register}/>
                 </div>
             </Router>
         )

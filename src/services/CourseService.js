@@ -5,15 +5,29 @@ class CourseService {
         this.url = 'http://127.0.0.1:8080/api/courses';
         this.courses = courses;
     }
-    addCourse = course => {
+    addCourse = (course) => {
         if(course === undefined || course.title === '') {
             course = {
-                id: (new Date()).getTime(),
+                id: (new Date()).getMilliseconds(),
                 title: 'New Course'
             }
         }
-        this.courses.push(course)
-        return this.courses
+
+        return fetch('http://127.0.0.1:8080/api/courses', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                "id": course.id,
+                "title": course.title,
+            })
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            alert("Could not create course!")
+        });
     }
 
     findCourseById = courseId =>
@@ -30,10 +44,14 @@ class CourseService {
             });
         //this.courses;
     }
-    deleteCourse = deleteCourse =>
-        this.courses = this.courses.filter(
-            course => course.id !== deleteCourse.id
-        )
+    deleteCourse = deleteCourse => {
+        return fetch('http://127.0.0.1:8080/api/courses/'+deleteCourse.id, {
+            method: 'DELETE',
+            credentials: 'include',
+        }).catch(error=>{
+            alert("incorrect username or password!")
+        });
+    }
 
     deleteWidget = (courseId, moduleId, lessonId, topicId, widgetId) =>{
         var course = this.courses.find(c => c.id === courseId);

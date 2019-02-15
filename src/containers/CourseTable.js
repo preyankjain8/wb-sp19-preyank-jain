@@ -7,18 +7,10 @@ import CourseService from "../services/CourseService";
 class CourseTable extends Component {
 	constructor(props) {
 		super(props);
-		this.courses = this.props.courseService.findAllCourses().then(this.findAllCourses)
 		this.state = {
 			course: { title: '' },
-			courses: []
+			courses: this.props.courses
 		};
-	}
-
-	findAllCourses = (courses) => {
-		this.setState({
-			courses: courses
-		})
-		console.log(this.state.courses)
 	}
 
 	render() {

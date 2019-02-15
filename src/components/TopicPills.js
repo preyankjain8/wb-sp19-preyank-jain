@@ -5,14 +5,14 @@ class TopicPills extends React.Component{
     constructor(props){
         super(props)
         this.isActive = this.isActive.bind(this);
-        if(this.props.lesson.topics === undefined){
-                    this.props.lesson.topics = []
-                }
+        /*if(this.props.topics === undefined){
+                    this.props.topics = []
+                }*/
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.lesson.topics === undefined){
-                            nextProps.lesson.topics = []
+        if(nextProps.topics === undefined){
+                            nextProps.topics = []
                         }
     }
 
@@ -23,7 +23,7 @@ class TopicPills extends React.Component{
         return(
             <ul className="nav nav-pills">
                 {
-                  this.props.lesson.topics.map(topic =>
+                  this.props.topics.map(topic =>
                     <TopicPillItem
                     topic={topic}
                     deleteTopic={this.props.deleteTopic}

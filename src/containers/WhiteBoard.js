@@ -1,46 +1,15 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import CourseGrid from "./CourseGrid";
-import CourseTable from "./CourseTable";
-import CourseEditor from "./CourseEditor";
-import CourseService from "../services/CourseService";
 import Login from "../components/Login"
 import Register from "../components/Register"
+import CourseManager from "./CourseManager";
 
 class WhiteBoard extends Component {
     constructor(props){
         super(props)
-        this.courseService = new CourseService();
-        this.state = {
-            courseInput: ''
-            //courses: this.courseService.findAllCourses()
-        }
     }
 
 
-    onCourseNameChange = (event) =>
-    {
-        this.setState({
-            courseInput: event.target.value
-        })
-    }
-
-    deleteCourse = (course) =>
-        this.setState({
-            courses: this.courseService.deleteCourse(course)
-        })
-    createCourse = () =>{
-        this.setState({
-            courses: this.courseService.addCourse(
-                {id: (new Date()).getTime(),
-                    title: this.state.courseInput
-                }
-            ),
-            courseInput:''
-        })
-
-        console.log(this.state.courses)
-    }
     render() {
         return (
             <Router>
@@ -55,27 +24,18 @@ class WhiteBoard extends Component {
                         </div>
                         <div className="col-7">
                             <input
-                                onChange={this.onCourseNameChange} id="new-course-title"
-                                value={this.state.courseInput}
+                                id="new-course-title"
                                 placeholder="New Course Title" className="form-control">
                             </input>
                         </div>
                         <div className="col-2">
-                            <i id="add-course-btn" onClick={ () =>  this.createCourse()} className="fa fa-2x fa-plus-circle"></i>
+                            <i id="add-course-btn" className="fa fa-2x fa-plus-circle"></i>
                         </div>
                     </div>
                     <div>
                         <Route path='/courses'
-                               component={() => <CourseTable
-                                   deleteCourse={this.deleteCourse}
-                                   courseService={this.courseService}/>}/>
-                        <Route path='/grid'
-                               component={() => <CourseGrid
-                                   courses={this.state.courses}
-                                   deleteCourse={this.deleteCourse}/>}/>
-                        <Route path="/course/:id"
                                exact
-                               component={CourseEditor}/>
+                               render={() => <CourseManager/>}/>
                         <Route path="/"
                                exact
                                component={Login}/>
