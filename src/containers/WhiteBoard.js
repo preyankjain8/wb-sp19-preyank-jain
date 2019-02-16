@@ -18,11 +18,6 @@ class WhiteBoard extends Component {
         })
     }
 
-    componentDidMount(){
-        document.getElementById("new-course-title").style.display="none";
-        document.getElementById("add-course-btn").style.display="none";
-    }
-
     render() {
         return (
             <Router>

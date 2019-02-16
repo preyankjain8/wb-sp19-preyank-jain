@@ -1,7 +1,7 @@
 
 class UserService {
     constructor() {
-        this.url = 'http://127.0.0.1:8080/api';
+        this.url = 'https://salty-castle-98472.herokuapp.com/api';
     }
 
     login = (userName, password) => {
