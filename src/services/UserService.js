@@ -7,6 +7,7 @@ class UserService {
     login = (userName, password) => {
         return fetch(this.url+"/login", {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'content-type': 'application/json',
                 "Access-Control-Allow-Origin": "*"
