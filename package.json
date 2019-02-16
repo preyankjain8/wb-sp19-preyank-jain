@@ -5,6 +5,7 @@
   "dependencies": {
     "array.prototype.move": "0.0.4",
     "bootstrap": "^4.2.1",
+    "cors": "^2.8.5",
     "font-awesome": "^4.7.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
