@@ -59,6 +59,18 @@ class Register extends Component {
             this.state.lastName).then(this.allowLogin)
     }
 
+    componentDidMount(){
+        document.getElementById("new-course-title").style.display="none";
+        document.getElementById("add-course-btn").style.display="none";
+        document.getElementById("logout-btn").style.display="none";
+    }
+
+    componentWillUnmount(){
+        document.getElementById("new-course-title").style.display="block";
+        document.getElementById("add-course-btn").style.display="block";
+        document.getElementById("logout-btn").style.display="block";
+    }
+
     allowLogin = (user) =>{
         if(user !== undefined)
             window.location.href = '/courses';
