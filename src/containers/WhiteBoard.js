@@ -43,6 +43,7 @@ class WhiteBoard extends Component {
                         <div className="col-1">
                             <i id="add-course-btn"
                                onClick={this.logOut}
+                               id="logout-btn"
                                className="fa fa-2x fa-sign-out"></i>
                         </div>
                     </div>

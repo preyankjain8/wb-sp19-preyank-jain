@@ -43,11 +43,13 @@ class Login extends Component {
     componentDidMount(){
         document.getElementById("new-course-title").style.display="none";
         document.getElementById("add-course-btn").style.display="none";
+        document.getElementById("logout-btn").style.display="none";
     }
 
     componentWillUnmount(){
         document.getElementById("new-course-title").style.display="block";
         document.getElementById("add-course-btn").style.display="block";
+        document.getElementById("logout-btn").style.display="block";
     }
 
     loggedIn = (user) => {
