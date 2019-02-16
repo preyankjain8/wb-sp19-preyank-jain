@@ -50,6 +50,7 @@ class Register extends Component {
     register = () => {
         if(this.state.password !== this.state.confirmPassword){
             alert("Passwords do not match!")
+            return
         }
         this.userService.register(
             this.state.userName,
