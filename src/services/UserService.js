@@ -18,8 +18,32 @@ class UserService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("incorrect username or password!")
+            console.log(error.toString())
         });
+    }
+
+    loggedIn = () => {
+        return fetch(this.url+"/profile", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            credentials: 'include',
+        }).then(function(response) {
+            return response.json();
+        }).catch(error=>{
+            console.log(error.toString());
+        });
+    }
+
+    logout = () => {
+        return fetch(this.url+"/logout", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            credentials: 'include',
+        })
     }
 
     register = (userName, password, firstName, lastName) => {
@@ -30,7 +54,7 @@ class UserService {
             },
             credentials: 'include',
             body: JSON.stringify({
-                "userName":userName,
+                "username":userName,
                 "password":password,
                 "firstName": firstName,
                 "lastName": lastName,
@@ -39,7 +63,7 @@ class UserService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("incorrect username or password!")
+            console.log(error.toString())
         });
     }
 }

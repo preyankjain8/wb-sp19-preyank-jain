@@ -14,7 +14,7 @@ const CourseGrid = ({courses, deleteCourse, addCourse}) =>
                           Owned by me
                         </div>
                         <div className="col-1">
-                        	<Link to="/">
+                        	<Link to="/courses">
                         	<i class="fa fa-th-list" aria-hidden="true"></i>
                         	</Link>
                         </div>

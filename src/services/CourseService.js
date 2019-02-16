@@ -26,7 +26,7 @@ class CourseService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not create course!")
+            console.log(error.toString())
         });
     }
 
@@ -43,10 +43,12 @@ class CourseService {
         return fetch(this.url,{
             method: 'GET',
             credentials: 'include'
-        })
-            .then(function(response) {
+        }).then(function(response) {
                 return response.json();
-            });
+            })
+            .catch(error => {
+                console.log(error.toString());
+            })
         //this.courses;
     }
     deleteCourse = deleteCourse => {
@@ -54,7 +56,7 @@ class CourseService {
             method: 'DELETE',
             credentials: 'include',
         }).catch(error=>{
-            alert("incorrect username or password!")
+            console.log(error.toString())
         });
     }
 
@@ -72,7 +74,7 @@ class CourseService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not update course!")
+            console.log(error.toString())
         });
     }
 

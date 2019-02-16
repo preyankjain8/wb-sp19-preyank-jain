@@ -21,6 +21,13 @@ class CourseManager extends Component {
     }
 
     findAllCourses = (courses) => {
+        if(courses === undefined){
+            window.location.href = '/'
+            return
+        }
+        if(courses.length === 0){
+            alert("The current user does not have any courses yet!")
+        }
         this.setState({
             courses: courses
         })

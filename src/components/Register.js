@@ -7,6 +7,7 @@ class Register extends Component {
     constructor(props){
         super(props)
         this.userService = new UserService();
+        this.userService.loggedIn().then(this.loggedIn)
         this.state = {
             userName: '',
             password: '',
@@ -47,6 +48,9 @@ class Register extends Component {
     }
 
     register = () => {
+        if(this.state.password !== this.state.confirmPassword){
+            alert("Passwords do not match!")
+        }
         this.userService.register(
             this.state.userName,
             this.state.password,
@@ -55,7 +59,14 @@ class Register extends Component {
     }
 
     allowLogin = (user) =>{
-        window.location.href = '/courses';
+        if(user !== undefined)
+            window.location.href = '/courses';
+    }
+
+    loggedIn = (user) => {
+        if(user !== undefined){
+            window.location.href = '/courses';
+        }
     }
 
     render() {

@@ -11,7 +11,7 @@ class TopicService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not fetch modules!")
+            console.log(error.toString())
         });
     }
 
@@ -36,7 +36,7 @@ class TopicService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not create topic!")
+            console.log(error.toString())
         });
     }
 
@@ -45,7 +45,7 @@ class TopicService {
             method: 'DELETE',
             credentials: 'include',
         }).catch(error=>{
-            alert("incorrect username or password!")
+            console.log(error.toString())
         });
     }
 
@@ -64,7 +64,7 @@ class TopicService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not update topic!")
+            console.log(error.toString())
         });
     }
 }

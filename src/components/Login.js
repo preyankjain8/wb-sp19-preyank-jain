@@ -7,6 +7,7 @@ class Login extends Component {
     constructor(props){
         super(props)
         this.userService = new UserService();
+        this.userService.loggedIn().then(this.loggedIn)
         this.state = {
             userName: '',
             password: ''
@@ -34,6 +35,15 @@ class Login extends Component {
     allowLogin = (user) =>{
         if(user !== undefined)
             window.location.href = '/courses';
+        else{
+            alert("incorrect username or password!")
+        }
+    }
+
+    loggedIn = (user) => {
+        if(user !== undefined){
+            window.location.href = '/courses';
+        }
     }
 
     render() {

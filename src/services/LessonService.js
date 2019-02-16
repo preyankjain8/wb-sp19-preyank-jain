@@ -11,7 +11,7 @@ class LessonService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not fetch modules!")
+            console.log(error.toString())
         });
     }
 
@@ -35,7 +35,7 @@ class LessonService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not create lesson!")
+            console.log(error.toString())
         });
     }
 
@@ -44,7 +44,7 @@ class LessonService {
             method: 'DELETE',
             credentials: 'include',
         }).catch(error=>{
-            alert("incorrect username or password!")
+            console.log(error.toString())
         });
     }
 
@@ -62,7 +62,7 @@ class LessonService {
         }).then(function(response) {
             return response.json();
         }).catch(error=>{
-            alert("Could not update lesson!")
+            console.log(error.toString())
         });
     }
 }

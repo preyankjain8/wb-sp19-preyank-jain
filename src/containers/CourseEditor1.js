@@ -15,6 +15,24 @@ import { combineReducers } from 'redux'
 
 const store = createStore(widgetReducer);
 
+
+const widgetList = [
+    {
+        "id": 123,
+        "Name": "Widget 1",
+        "type": "HEADING",
+        "text": "This is a heading",
+        "size": 2,
+        "editing": true
+    },
+    {
+        "id": 234,
+        "Name": "Widget 2",
+        "type": "IMAGE",
+        "editing": true
+    }
+]
+
 class CourseEditor1 extends React.Component {
     constructor(props) {
         super(props)
@@ -33,7 +51,7 @@ class CourseEditor1 extends React.Component {
             lesson:{},
             topics: [],
             topic:{},
-            widgets: [],
+            widgets: widgetList,
             moduleInput: '',
             lessonInput: '',
             topicInput: '',
@@ -48,16 +66,19 @@ class CourseEditor1 extends React.Component {
 
 
     assignModules = (modules) => {
+        if (modules === undefined){
+            window.location.href = '/';
+        }
         if (modules.length === 0)
         {
+            alert("There are no modules yet for this course!")
             this.setState({
                 modules: [],
                 module: {},
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {},
-                widgets: []
+                topic: {}
             })
         }
         else{
@@ -67,8 +88,7 @@ class CourseEditor1 extends React.Component {
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {},
-                widgets: []
+                topic: {}
             })
             this.lesonService.findAllLessons(modules[0].id).then(this.assignLessons)
         }
@@ -83,8 +103,7 @@ class CourseEditor1 extends React.Component {
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {},
-                widgets: []
+                topic: {}
             })
         }
         else{
@@ -94,8 +113,7 @@ class CourseEditor1 extends React.Component {
                 lessons: lessons,
                 lesson: lessons[0],
                 topics: [],
-                topic: {},
-                widgets: []
+                topic: {}
             })
             this.topicService.findAllTopics(lessons[0].id).then(this.assignTopics)
         }
@@ -110,8 +128,7 @@ class CourseEditor1 extends React.Component {
                 lessons:this.state.lessons,
                 lesson:this.state.lesson,
                 topics: [],
-                topic: {},
-                widgets: []
+                topic: {}
             })
         }
         else{
@@ -121,8 +138,7 @@ class CourseEditor1 extends React.Component {
                 lessons:this.state.lessons,
                 lesson:this.state.lesson,
                 topics: topics,
-                topic: topics[0],
-                widgets: []
+                topic: topics[0]
             })
         }
     }
