@@ -9,6 +9,7 @@ class UserService {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                "Access-Control-Allow-Origin": "*"
             },
             credentials: 'include',
             body: JSON.stringify({
