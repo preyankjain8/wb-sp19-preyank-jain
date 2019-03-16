@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import WidgetList from '../components/WidgetList'
+import HeadingWidgetService from "../services/HeadingWidgetService";
+import ListWidgetService from "../services/ListWidgetService";
+import ParagraphWidgetService from "../services/ParagraphWidgetService";
+import ImageWidgetService from "../services/ImageWidgetService";
+import LinkWidgetService from "../services/LinkWidgetService";
 
 
 
@@ -13,17 +18,21 @@ const stateToPropertyMapper = (state, props) => ({
 const dispatchToPropertyMapper = (dispatch, props) => ({
     deleteWidget: widget =>{
         //props.deleteWidget(widget.id);
-        dispatch({
+        props.widgetService.deleteWidget(widget.id)
+            .then(dispatch({
                 type: 'DELETE_WIDGET',
                 widget: widget
-                    })
+            }))
     },
     addWidget: () =>{
         //props.addWidget();
-        dispatch({
+        props.widgetService.addWidget(props.topic.id).then(
+            function(widget){
+                dispatch({
                     type: 'CREATE_WIDGET',
-                    topicId: props.topic.id
-                })
+                    widget: widget
+            })
+        })
     },
     moveDownWidget: widget =>{
         //props.moveDownWidget(widget);
@@ -31,13 +40,6 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
         type: 'MOVE_DOWN_WIDGET',
         widget: widget
         })
-    },
-    togglePreview: widgets => {
-        dispatch({
-                    type: 'TOGGLE_VIEW',
-                    widgets: widgets
-                })
-
     },
     moveUpWidget: widget =>{
     //props.moveUpWidget(widget);
@@ -57,11 +59,13 @@ const dispatchToPropertyMapper = (dispatch, props) => ({
         }
 
     },
-    updateWidget: widget =>
+    updateWidget: widget =>{
         dispatch({
             type: 'UPDATE_WIDGET',
-            widget: widget
-        }),
+            widget: widget,
+            id : widget.id
+        })
+    },
      togglePreview: widgets =>
         dispatch({
             type: 'TOGGLE_PREVIEW'

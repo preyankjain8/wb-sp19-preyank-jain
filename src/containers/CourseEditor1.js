@@ -11,36 +11,28 @@ import {Provider} from 'react-redux'
 import ModuleService from '../services/ModuleService'
 import LessonService from '../services/LessonService'
 import TopicService from '../services/TopicService'
+import WidgetService from '../services/WidgetService'
+import HeadingWidgetService from '../services/HeadingWidgetService'
+import ImageWidgetService from '../services/ImageWidgetService'
+import ParagraphWidgetService from '../services/ParagraphWidgetService'
+import ListWidgetService from '../services/ListWidgetService'
 import { combineReducers } from 'redux'
+import LinkWidgetService from "../services/LinkWidgetService";
 
 const store = createStore(widgetReducer);
-
-
-const widgetList = [
-    {
-        "id": 123,
-        "Name": "Widget 1",
-        "type": "HEADING",
-        "text": "This is a heading",
-        "size": 2,
-        "editing": true
-    },
-    {
-        "id": 234,
-        "Name": "Widget 2",
-        "type": "IMAGE",
-        "editing": true
-    }
-]
 
 class CourseEditor1 extends React.Component {
     constructor(props) {
         super(props)
-        const widgets =
-            this.courseService = new CourseService()
+        this.courseService = new CourseService()
         this.moduleService = new ModuleService()
         this.lesonService = new LessonService()
         this.topicService = new TopicService()
+        this.widgetService = new WidgetService()
+        this.imageWidgetService = new ImageWidgetService()
+        this.headingWidgetService = new HeadingWidgetService()
+        this.listWidgetService = new ListWidgetService()
+        this.paragraphWidgetService = new ParagraphWidgetService()
         this.courseId = parseInt(props.match.params.id)
         //var modules = this.moduleService.findAllModules(this.courseId).then(this.assignModules)
         this.state = {
@@ -51,7 +43,7 @@ class CourseEditor1 extends React.Component {
             lesson:{},
             topics: [],
             topic:{},
-            widgets: widgetList,
+            widgets: [],
             moduleInput: '',
             lessonInput: '',
             topicInput: '',
@@ -78,7 +70,9 @@ class CourseEditor1 extends React.Component {
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {}
+                topic: {},
+                widgets: [],
+                reloadWidgets: true
             })
         }
         else{
@@ -88,7 +82,9 @@ class CourseEditor1 extends React.Component {
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {}
+                topic: {},
+                widgets: [],
+                reloadWidgets: true
             })
             this.lesonService.findAllLessons(modules[0].id).then(this.assignLessons)
         }
@@ -103,7 +99,9 @@ class CourseEditor1 extends React.Component {
                 lessons: [],
                 lesson: {},
                 topics: [],
-                topic: {}
+                topic: {},
+                widgets: [],
+                reloadWidgets: true
             })
         }
         else{
@@ -113,7 +111,9 @@ class CourseEditor1 extends React.Component {
                 lessons: lessons,
                 lesson: lessons[0],
                 topics: [],
-                topic: {}
+                topic: {},
+                widgets: [],
+                reloadWidgets: true
             })
             this.topicService.findAllTopics(lessons[0].id).then(this.assignTopics)
         }
@@ -128,7 +128,9 @@ class CourseEditor1 extends React.Component {
                 lessons:this.state.lessons,
                 lesson:this.state.lesson,
                 topics: [],
-                topic: {}
+                topic: {},
+                widgets: [],
+                reloadWidgets: true
             })
         }
         else{
@@ -138,7 +140,38 @@ class CourseEditor1 extends React.Component {
                 lessons:this.state.lessons,
                 lesson:this.state.lesson,
                 topics: topics,
-                topic: topics[0]
+                topic: topics[0],
+                widgets: [],
+                reloadWidgets: true
+            })
+            this.widgetService.findAllWidgets(topics[0].id).then(this.assignWidgets)
+        }
+    }
+
+    assignWidgets = (widgets) => {
+        if (widgets.length === 0)
+        {
+            this.setState({
+                modules:this.state.modules,
+                module:this.state.module,
+                lessons:this.state.lessons,
+                lesson:this.state.lesson,
+                topics: this.state.topics,
+                topic: this.state.topic,
+                widgets: [],
+                reloadWidgets: true
+            })
+        }
+        else{
+            this.setState({
+                modules:this.state.modules,
+                module:this.state.module,
+                lessons:this.state.lessons,
+                lesson:this.state.lesson,
+                topics: this.state.topics,
+                topic: this.state.topic,
+                widgets: widgets,
+                reloadWidgets: true
             })
         }
     }
@@ -163,6 +196,7 @@ class CourseEditor1 extends React.Component {
         this.setState({
             topic:topic
         })
+        this.widgetService.findAllWidgets(topic.id).then(this.assignWidgets)
     }
 
     deleteWidget = widgetId =>{
@@ -263,8 +297,14 @@ class CourseEditor1 extends React.Component {
         var lessons = this.state.lessons;
         lessons = lessons.filter(l => l.id !== lessonId);
         this.setState({
-            lessons: lessons
+            lessons: lessons,
+            topics:[],
+            wigets: [],
+            reloadWidgets: true
         })
+        if (lessons.length > 0){
+            this.selectLesson(lessons[0])
+        }
     }
 
     deleteTopic = (deletetopic) => {
@@ -275,8 +315,13 @@ class CourseEditor1 extends React.Component {
         var topics = this.state.topics;
         topics = topics.filter(t => t.id !== topicId);
         this.setState({
-            topics: topics
+            topics: topics,
+            wigets: [],
+            reloadWidgets: true
         })
+        if (topics.length > 0){
+            this.selectTopic(topics[0])
+        }
     }
 
 
@@ -380,8 +425,16 @@ class CourseEditor1 extends React.Component {
         var modules = this.state.modules;
         modules = modules.filter(m => m.id != moduleId)
         this.setState({
-            modules: modules
+            modules: modules,
+            lessons: [],
+            topics: [],
+            widgets: [],
+            reloadWidgets: true
+
         })
+        if (modules.length > 0){
+            this.selectModule(modules[0])
+        }
     }
 
     editModuleName= (module) => {
@@ -509,6 +562,32 @@ class CourseEditor1 extends React.Component {
             widgets: widgets,
             reloadWidgets: true
         })
+
+        widgets.forEach(
+            function (widget) {
+                if (widget.type == "HEADING"){
+                    var headingWidgetService = new HeadingWidgetService()
+                    headingWidgetService.updateWidget(widget,widget.id)
+                }
+                else if (widget.type == "LIST"){
+                    var listWidgetService = new ListWidgetService()
+                    listWidgetService.updateWidget(widget,widget.id)
+                }
+                else if (widget.type == "PARAGRAPH"){
+                    var paragraphWidgetService = new ParagraphWidgetService()
+                    paragraphWidgetService.updateWidget(widget,widget.id)
+                }
+                else if (widget.type == "IMAGE"){
+                    var imageWidgetService = new ImageWidgetService()
+                    imageWidgetService.updateWidget(widget,widget.id)
+                }
+                else if (widget.type == "LINK"){
+                    var linkWidgetService = new LinkWidgetService()
+                    linkWidgetService.updateWidget(widget,widget.id)
+                }
+            }
+
+        );
     }
 
     render() {
@@ -561,6 +640,7 @@ class CourseEditor1 extends React.Component {
                             <WidgetListContainer
                                 topic={this.state.topic}
                                 widgets={this.state.widgets}
+                                widgetService={this.widgetService}
                                 deleteWidget={this.deleteWidget}
                                 moveUpWidget={this.moveUpWidget}
                                 moveDownWidget={this.moveDownWidget}

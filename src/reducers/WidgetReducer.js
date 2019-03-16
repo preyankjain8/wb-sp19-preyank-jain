@@ -1,3 +1,8 @@
+import HeadingWidgetService from "../services/HeadingWidgetService";
+import ListWidgetService from "../services/ListWidgetService";
+import ParagraphWidgetService from "../services/ParagraphWidgetService";
+import ImageWidgetService from "../services/ImageWidgetService";
+
 const widgetReducer = (state = {widgets:[], preview: true}, action) => {
     switch(action.type) {
         case 'DELETE_WIDGET':
@@ -9,14 +14,7 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
             return {
                 widgets: [
                     ...state.widgets,
-                    {
-                        type: 'HEADING',
-                        Name: 'New Widget',
-                        size: 1,
-                        topicId: action.topicId,
-                        id: (new Date()).getTime(),
-                        editing: true
-                    }
+                    action.widget
                 ],
                 preview: state.preview
             }
@@ -24,7 +22,7 @@ const widgetReducer = (state = {widgets:[], preview: true}, action) => {
             // replace the old widget with the new widget
             return {
                 widgets: state.widgets.map(widget =>
-                widget.id === action.widget.id ? action.widget : widget
+                widget.id === action.id ? action.widget : widget
                 ),
                 preview: state.preview
             }

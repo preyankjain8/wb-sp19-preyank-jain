@@ -20,10 +20,10 @@ const HeadingWidget = ({widget, updateWidget}) =>
                           type="text"
                           placeholder="Heading text"
                           value={widget.text}
-                                                  onChange={event => {
-                                                      widget.text = event.target.value
-                                                      updateWidget(widget)
-                                                  }}>
+                                                      onChange={event => {
+                                                          widget.text = event.target.value
+                                                          updateWidget(widget)
+                                                      }}>
                         </input>
                         </div>
                 </div>
@@ -65,9 +65,9 @@ const HeadingWidget = ({widget, updateWidget}) =>
             	<div
             	className="col-sm-10">
             	<input
-            	value={widget.Name}
+            	value={widget.title}
             	onChange={event => {
-            	widget.Name = event.target.value
+            	widget.title = event.target.value
             	updateWidget(widget)
             	}}
             	className="widget-field"

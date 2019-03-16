@@ -58,9 +58,9 @@ const LinkWidget = ({widget, updateWidget}) =>
           		<div
           		className="col-sm-10">
           		<input
-          		value={widget.Name}
+          		value={widget.title}
           		onChange={event => {
-          		widget.Name = event.target.value
+          		widget.title = event.target.value
           		updateWidget(widget)
           		}}
           		className="widget-field"

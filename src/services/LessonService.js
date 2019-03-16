@@ -1,7 +1,8 @@
 
 class LessonService {
     constructor() {
-        this.url = 'https://salty-castle-98472.herokuapp.com/api';
+        //this.url = 'https://salty-castle-98472.herokuapp.com/api';
+        this.url = 'http://localhost:8080/api';
     }
 
     findAllLessons = (moduleId) => {

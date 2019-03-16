@@ -56,7 +56,7 @@ class Register extends Component {
             this.state.userName,
             this.state.password,
             this.state.firstName,
-            this.state.lastName).then(this.allowLogin)
+            this.state.lastName).then(this.allowRegister)
     }
 
     componentDidMount(){
@@ -69,6 +69,11 @@ class Register extends Component {
         document.getElementById("new-course-title").style.display="block";
         document.getElementById("add-course-btn").style.display="block";
         document.getElementById("logout-btn").style.display="block";
+    }
+
+    allowRegister = (user) => {
+        if(user !== undefined)
+            this.userService.logout();
     }
 
     allowLogin = (user) =>{

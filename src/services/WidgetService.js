@@ -1,12 +1,22 @@
 
-class ModuleService {
+class WidgetService{
     constructor() {
         //this.url = 'https://salty-castle-98472.herokuapp.com/api';
         this.url = 'http://localhost:8080/api';
     }
 
-    findAllModules = (courseId) => {
-        return fetch(this.url+"/course/"+courseId+"/modules", {
+    findWidgetById = widgetId =>{
+        return fetch(this.url+"/widget/"+widgetId,{
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(function(response) {
+                return response.json();
+            });
+    }
+
+    findAllWidgets = (topicId) => {
+        return fetch(this.url+"/topic/"+topicId+"/widget", {
             method: 'GET',
             credentials: 'include',
         }).then(function(response) {
@@ -16,23 +26,16 @@ class ModuleService {
         });
     }
 
-    addModule = (module, courseId) => {
-        if(module === undefined || module.title === '') {
-            module = {
-                id: (new Date()).getMilliseconds(),
-                title: 'New Module'
-            }
-        }
-
-        return fetch(this.url+"/courses/"+courseId+"/modules", {
+    addWidget = (topicId) => {
+        return fetch(this.url+"/topic/"+topicId+"/widget", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({
-                "id": module.id,
-                "title": module.title,
+                "id": topicId,
+                "title": "New Widget",
             })
         }).then(function(response) {
             return response.json();
@@ -41,8 +44,8 @@ class ModuleService {
         });
     }
 
-    deleteModule = moduleId => {
-        return fetch(this.url+"/modules/"+moduleId, {
+    deleteWidget = widgetId => {
+        return fetch(this.url+"/widget/"+widgetId, {
             method: 'DELETE',
             credentials: 'include',
         }).catch(error=>{
@@ -50,16 +53,20 @@ class ModuleService {
         });
     }
 
-    updateModule = (module,moduleId) => {
-        return fetch(this.url+"/modules/"+moduleId, {
+
+    updateWidget = (widget,widgetId) => {
+        return fetch(this.url+"/widget/"+widgetId, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({
-                "id": module.id,
-                "title": module.title,
+                "id": widgetId,
+                "title": widget.title,
+                "text": widget.text,
+                "type": widget.type,
+                "size": widget.size,
             })
         }).then(function(response) {
             return response.json();
@@ -68,4 +75,4 @@ class ModuleService {
         });
     }
 }
-export default ModuleService;
+export default WidgetService;

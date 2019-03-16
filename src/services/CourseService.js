@@ -2,7 +2,8 @@ import courses from './courses.json';
 
 class CourseService {
     constructor() {
-        this.url = 'https://salty-castle-98472.herokuapp.com/api/courses';
+        //this.url = 'https://salty-castle-98472.herokuapp.com/api/courses';
+        this.url = 'http://localhost:8080/api/courses';
         this.courses = courses;
     }
     addCourse = (course) => {
@@ -13,7 +14,7 @@ class CourseService {
             }
         }
 
-        return fetch('https://salty-castle-98472.herokuapp.com/api/courses', {
+        return fetch(this.url, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -52,7 +53,7 @@ class CourseService {
         //this.courses;
     }
     deleteCourse = deleteCourse => {
-        return fetch('https://salty-castle-98472.herokuapp.com/api/courses/'+deleteCourse.id, {
+        return fetch(this.url+"/"+deleteCourse.id, {
             method: 'DELETE',
             credentials: 'include',
         }).catch(error=>{
