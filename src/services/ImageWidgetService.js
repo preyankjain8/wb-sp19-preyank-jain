@@ -2,7 +2,8 @@
 class ImageWidgetService {
     constructor() {
         //this.url = 'https://salty-castle-98472.herokuapp.com/api';
-        this.url = 'http://localhost:8080/api';
+        //this.url = 'http://localhost:8080/api';
+        this.url = 'https://peaceful-reef-79181.herokuapp.com/api'
     }
 
     findWidgetById = widgetId =>{

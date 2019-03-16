@@ -73,7 +73,11 @@ class Register extends Component {
 
     allowRegister = (user) => {
         if(user !== undefined)
-            this.userService.logout();
+            this.userService.logout().then(
+                function () {
+                    window.location.href = '/';
+                }
+            );
     }
 
     allowLogin = (user) =>{

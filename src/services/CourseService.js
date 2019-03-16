@@ -3,7 +3,8 @@ import courses from './courses.json';
 class CourseService {
     constructor() {
         //this.url = 'https://salty-castle-98472.herokuapp.com/api/courses';
-        this.url = 'http://localhost:8080/api/courses';
+        //this.url = 'http://localhost:8080/api/courses';
+        this.url = 'https://peaceful-reef-79181.herokuapp.com/api/courses'
         this.courses = courses;
     }
     addCourse = (course) => {
